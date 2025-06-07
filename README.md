@@ -6,8 +6,8 @@ This framework is designed for Behavior-Driven Development (BDD) of API tests. I
 
 ## 2. Prerequisites
 
-*   **Java Development Kit (JDK)**: Version 11 or higher (please specify the exact version if known).
-*   **Maven**: Version 3.6.x or higher (or Gradle, if used).
+*   **Java Development Kit (JDK)**: Version 17.
+*   **Maven**: Version 3.6.x or higher.
 *   **IDE**: IntelliJ IDEA, Eclipse, or any other Java-compatible IDE.
 *   Access to the target API environments (e.g., INT, CERT).
 
