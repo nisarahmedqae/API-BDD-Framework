@@ -4,7 +4,7 @@
 
     <test name="Cucumber Tests" annotations="JDK" preserve-order="true">
         <classes>
-            <class name="com.nahmed.cucumber.runner.TestRunner"/>
+            <class name="com.nahmed.runners.TestRunner"/>
         </classes>
     </test>
 
