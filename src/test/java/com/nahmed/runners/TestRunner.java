@@ -10,7 +10,7 @@ import org.testng.annotations.DataProvider;
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",
                 "html:reports/cucumber/report.html",
                 "json:reports/cucumber/cucumber.json",
-                "com.nahmed.utils.TestListener"
+                "com.nahmed.listeners.TestListener"
         },
         features = {"src/test/java/com/nahmed/features"},
         glue = {"com.nahmed.stepdefinitions",
