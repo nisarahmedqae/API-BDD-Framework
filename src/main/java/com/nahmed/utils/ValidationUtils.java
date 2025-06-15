@@ -1,7 +1,6 @@
 package com.nahmed.utils;
 
 import com.nahmed.constants.FrameworkConstants;
-import com.nahmed.enums.ConfigProperties;
 import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.response.Response;
 import org.apache.log4j.LogManager;
@@ -9,7 +8,7 @@ import org.apache.log4j.Logger;
 
 import java.io.File;
 
-import static org.testng.Assert.fail; // Import Assert.fail for explicit failures
+import static org.testng.Assert.fail;
 
 public class ValidationUtils {
 
