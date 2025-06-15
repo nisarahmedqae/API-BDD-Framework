@@ -18,4 +18,8 @@ public final class ExtentLogger {
         ExtentManager.getExtentTest().skip(message);
     }
 
+    public static void info(String message) {
+        ExtentManager.getExtentTest().info(message);
+    }
+
 }
