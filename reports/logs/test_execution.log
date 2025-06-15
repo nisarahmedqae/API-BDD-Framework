@@ -1,0 +1,166 @@
+2025-06-15 14:10:36.561 [main] INFO  org.testng.internal.Utils - [TestNG] Running:
+  C:\Users\iamni\AppData\Local\JetBrains\IdeaIC2025.1\temp-testng-customsuite.xml
+
+2025-06-15 14:10:37.189 [main] INFO  com.nahmed.listeners.TestListener - [35m=========================================================================================[0m
+2025-06-15 14:10:37.190 [main] INFO  com.nahmed.listeners.TestListener - [35m CUCUMBER TEST EXECUTION STARTED [0m
+2025-06-15 14:10:37.190 [main] INFO  com.nahmed.listeners.TestListener - [35m Timestamp: 2025-06-15T08:40:37.189156800Z[0m
+2025-06-15 14:10:37.190 [main] INFO  com.nahmed.listeners.TestListener - [35m=========================================================================================[0m
+2025-06-15 14:10:37.605 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [34m*****************************************************************************************[0m
+2025-06-15 14:10:37.605 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [34mFeature: CreateBooking.feature[0m
+2025-06-15 14:10:37.605 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [34mStarting Scenario: To create new booking using cucumber Data Table "TC01" (Line: 15)[0m
+2025-06-15 14:10:37.605 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [34mTags: @bookerAPI, @createBooking, @createBookingDataTable[0m
+2025-06-15 14:10:37.605 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [34m*****************************************************************************************[0m
+2025-06-15 14:10:37.607 [TestNG-PoolService-1] INFO  com.nahmed.events.Hooks - INTEGRATION environment selected
+2025-06-15 14:10:37.608 [TestNG-PoolService-1] INFO  com.nahmed.events.Hooks - Attempting to generate OAuth2 token...
+2025-06-15 14:10:37.608 [TestNG-PoolService-1] INFO  com.nahmed.events.Hooks - OAuth2 token successfully generated and stored in session.
+2025-06-15 14:10:37.615 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [34m  Given user has access to endpoint "/booking"[0m
+2025-06-15 14:10:37.620 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [32m  STEP PASSED: Given user has access to endpoint "/booking"[0m
+2025-06-15 14:10:37.621 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [34m  When user creates a booking[0m
+2025-06-15 14:10:40.803 [TestNG-PoolService-1] DEBUG c.n.utils.RestAssuredRequestFilter - -----------------------------------------------------------------------------------------
+2025-06-15 14:10:40.803 [TestNG-PoolService-1] DEBUG c.n.utils.RestAssuredRequestFilter -  Request Method => POST
+2025-06-15 14:10:40.804 [TestNG-PoolService-1] DEBUG c.n.utils.RestAssuredRequestFilter -  Request URI => https://restful-booker.herokuapp.com/booking
+2025-06-15 14:10:40.805 [TestNG-PoolService-1] DEBUG c.n.utils.RestAssuredRequestFilter -  Request Header =>
+Accept=application/json
+Content-Type=application/json
+2025-06-15 14:10:40.805 [TestNG-PoolService-1] DEBUG c.n.utils.RestAssuredRequestFilter -  Request Body => {"firstname":"John","additionalneeds":"Breakfast","bookingdates":{"checkin":"2021-05-05","checkout":"2021-05-15"},"totalprice":1200,"depositpaid":true,"lastname":"Doe"}
+2025-06-15 14:10:40.805 [TestNG-PoolService-1] DEBUG c.n.utils.RestAssuredRequestFilter - 
+ Response Status => HTTP/1.1 200 OK
+2025-06-15 14:10:40.805 [TestNG-PoolService-1] DEBUG c.n.utils.RestAssuredRequestFilter -  Response Header =>
+Content-Length=197
+Content-Type=application/json; charset=utf-8
+Date=Sun, 15 Jun 2025 08:40:50 GMT
+Etag=W/"c5-ze2ARGiqVp692TuNgPJi1mYd1to"
+Nel={"report_to":"heroku-nel","response_headers":["Via"],"max_age":3600,"success_fraction":0.01,"failure_fraction":0.1}
+Report-To={"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=thsAaWVZlMXYTMnRQQufq9OKyMdoAKpkkdn444DNQmU%3D\u0026sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add\u0026ts=1749976850"}],"max_age":3600}
+Reporting-Endpoints=heroku-nel="https://nel.heroku.com/reports?s=thsAaWVZlMXYTMnRQQufq9OKyMdoAKpkkdn444DNQmU%3D&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&ts=1749976850"
+Server=Heroku
+Via=1.1 heroku-router
+X-Powered-By=Express
+2025-06-15 14:10:40.838 [TestNG-PoolService-1] DEBUG c.n.utils.RestAssuredRequestFilter -  Response Body => 
+{
+    "bookingid": 5563,
+    "booking": {
+        "firstname": "John",
+        "lastname": "Doe",
+        "totalprice": 1200,
+        "depositpaid": true,
+        "bookingdates": {
+            "checkin": "2021-05-05",
+            "checkout": "2021-05-15"
+        },
+        "additionalneeds": "Breakfast"
+    }
+}
+2025-06-15 14:10:40.838 [TestNG-PoolService-1] DEBUG c.n.utils.RestAssuredRequestFilter - -----------------------------------------------------------------------------------------
+2025-06-15 14:10:40.976 [TestNG-PoolService-1] DEBUG com.nahmed.utils.ResponseHandler - Handling Response (Deserialized): 
+{
+  "booking" : {
+    "firstname" : "John",
+    "additionalneeds" : "Breakfast",
+    "bookingdates" : {
+      "checkin" : "2021-05-05",
+      "checkout" : "2021-05-15"
+    },
+    "totalprice" : "1200",
+    "depositpaid" : "true",
+    "lastname" : "Doe"
+  },
+  "bookingid" : "5563"
+}
+2025-06-15 14:10:40.976 [TestNG-PoolService-1] DEBUG com.nahmed.utils.ResponseHandler - Successfully deserialized response to type: com.nahmed.models.response.BookingDTO
+2025-06-15 14:10:40.977 [TestNG-PoolService-1] INFO  c.n.s.CreateBookingStepdefinition - Newly created booking ID: 5563
+2025-06-15 14:10:40.978 [TestNG-PoolService-1] INFO  c.n.s.CreateBookingStepdefinition - Validating booking data: {"firstname":"John","additionalneeds":"Breakfast","checkin":"2021-05-05","totalprice":"1200","depositpaid":"true","checkout":"2021-05-15","lastname":"Doe"}
+2025-06-15 14:10:40.978 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [32m  STEP PASSED: When user creates a booking[0m
+2025-06-15 14:10:40.979 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [34m  Then user should get the response code 200[0m
+2025-06-15 14:10:40.979 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [32m  STEP PASSED: Then user should get the response code 200[0m
+2025-06-15 14:10:40.981 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [34m  And user validates the response with JSON schema "createBookingSchema.json"[0m
+2025-06-15 14:10:40.982 [TestNG-PoolService-1] DEBUG com.nahmed.utils.ValidationUtils - Attempting to validate against schema file: C:\Users\iamni\IdeaProjects\API-BDD-Framework\src\main\java\com\nahmed\models\schema\createBookingSchema.json
+2025-06-15 14:10:41.280 [TestNG-PoolService-1] INFO  com.nahmed.utils.ValidationUtils - Successfully validated response against schema: createBookingSchema.json
+2025-06-15 14:10:41.281 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [32m  STEP PASSED: And user validates the response with JSON schema "createBookingSchema.json"[0m
+2025-06-15 14:10:41.281 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [32m*****************************************************************************************[0m
+2025-06-15 14:10:41.282 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [32mFinished Scenario: To create new booking using cucumber Data Table "TC01" --> PASSED[0m
+2025-06-15 14:10:41.286 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [32m  Duration: 3.78 seconds[0m
+2025-06-15 14:10:41.286 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [32m*****************************************************************************************[0m
+2025-06-15 14:10:41.286 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - 
+2025-06-15 14:10:41.295 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [34m*****************************************************************************************[0m
+2025-06-15 14:10:41.295 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [34mFeature: CreateBooking.feature[0m
+2025-06-15 14:10:41.295 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [34mStarting Scenario: To create new booking using cucumber Data Table "TC02" (Line: 16)[0m
+2025-06-15 14:10:41.295 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [34mTags: @bookerAPI, @createBooking, @createBookingDataTable[0m
+2025-06-15 14:10:41.295 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [34m*****************************************************************************************[0m
+2025-06-15 14:10:41.296 [TestNG-PoolService-1] INFO  com.nahmed.events.Hooks - INTEGRATION environment selected
+2025-06-15 14:10:41.296 [TestNG-PoolService-1] INFO  com.nahmed.events.Hooks - Attempting to generate OAuth2 token...
+2025-06-15 14:10:41.296 [TestNG-PoolService-1] INFO  com.nahmed.events.Hooks - OAuth2 token successfully generated and stored in session.
+2025-06-15 14:10:41.297 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [34m  Given user has access to endpoint "/booking"[0m
+2025-06-15 14:10:41.298 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [32m  STEP PASSED: Given user has access to endpoint "/booking"[0m
+2025-06-15 14:10:41.298 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [34m  When user creates a booking[0m
+2025-06-15 14:10:42.922 [TestNG-PoolService-1] DEBUG c.n.utils.RestAssuredRequestFilter - -----------------------------------------------------------------------------------------
+2025-06-15 14:10:42.923 [TestNG-PoolService-1] DEBUG c.n.utils.RestAssuredRequestFilter -  Request Method => POST
+2025-06-15 14:10:42.925 [TestNG-PoolService-1] DEBUG c.n.utils.RestAssuredRequestFilter -  Request URI => https://restful-booker.herokuapp.com/booking
+2025-06-15 14:10:42.925 [TestNG-PoolService-1] DEBUG c.n.utils.RestAssuredRequestFilter -  Request Header =>
+Accept=application/json
+Content-Type=application/json
+2025-06-15 14:10:42.925 [TestNG-PoolService-1] DEBUG c.n.utils.RestAssuredRequestFilter -  Request Body => {"firstname":"Jane","additionalneeds":"Dinner","bookingdates":{"checkin":"2021-06-01","checkout":"2021-07-10"},"totalprice":2400,"depositpaid":false,"lastname":"Doe"}
+2025-06-15 14:10:42.926 [TestNG-PoolService-1] DEBUG c.n.utils.RestAssuredRequestFilter - 
+ Response Status => HTTP/1.1 200 OK
+2025-06-15 14:10:42.926 [TestNG-PoolService-1] DEBUG c.n.utils.RestAssuredRequestFilter -  Response Header =>
+Content-Length=195
+Content-Type=application/json; charset=utf-8
+Date=Sun, 15 Jun 2025 08:40:53 GMT
+Etag=W/"c3-TfoIxylnknY4A0qiLuPtt1ZKheQ"
+Nel={"report_to":"heroku-nel","response_headers":["Via"],"max_age":3600,"success_fraction":0.01,"failure_fraction":0.1}
+Report-To={"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=KoFQ%2Fq%2FuTRFZV2QuS6Pda%2Fy5qi3WjiH7u8hwig6ZJAY%3D\u0026sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add\u0026ts=1749976853"}],"max_age":3600}
+Reporting-Endpoints=heroku-nel="https://nel.heroku.com/reports?s=KoFQ%2Fq%2FuTRFZV2QuS6Pda%2Fy5qi3WjiH7u8hwig6ZJAY%3D&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&ts=1749976853"
+Server=Heroku
+Via=1.1 heroku-router
+X-Powered-By=Express
+2025-06-15 14:10:42.934 [TestNG-PoolService-1] DEBUG c.n.utils.RestAssuredRequestFilter -  Response Body => 
+{
+    "bookingid": 5581,
+    "booking": {
+        "firstname": "Jane",
+        "lastname": "Doe",
+        "totalprice": 2400,
+        "depositpaid": false,
+        "bookingdates": {
+            "checkin": "2021-06-01",
+            "checkout": "2021-07-10"
+        },
+        "additionalneeds": "Dinner"
+    }
+}
+2025-06-15 14:10:42.935 [TestNG-PoolService-1] DEBUG c.n.utils.RestAssuredRequestFilter - -----------------------------------------------------------------------------------------
+2025-06-15 14:10:42.936 [TestNG-PoolService-1] DEBUG com.nahmed.utils.ResponseHandler - Handling Response (Deserialized): 
+{
+  "booking" : {
+    "firstname" : "Jane",
+    "additionalneeds" : "Dinner",
+    "bookingdates" : {
+      "checkin" : "2021-06-01",
+      "checkout" : "2021-07-10"
+    },
+    "totalprice" : "2400",
+    "depositpaid" : "false",
+    "lastname" : "Doe"
+  },
+  "bookingid" : "5581"
+}
+2025-06-15 14:10:42.936 [TestNG-PoolService-1] DEBUG com.nahmed.utils.ResponseHandler - Successfully deserialized response to type: com.nahmed.models.response.BookingDTO
+2025-06-15 14:10:42.936 [TestNG-PoolService-1] INFO  c.n.s.CreateBookingStepdefinition - Newly created booking ID: 5581
+2025-06-15 14:10:42.937 [TestNG-PoolService-1] INFO  c.n.s.CreateBookingStepdefinition - Validating booking data: {"firstname":"Jane","additionalneeds":"Dinner","checkin":"2021-06-01","totalprice":"2400","depositpaid":"false","checkout":"2021-07-10","lastname":"Doe"}
+2025-06-15 14:10:42.938 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [32m  STEP PASSED: When user creates a booking[0m
+2025-06-15 14:10:42.938 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [34m  Then user should get the response code 200[0m
+2025-06-15 14:10:42.939 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [32m  STEP PASSED: Then user should get the response code 200[0m
+2025-06-15 14:10:42.939 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [34m  And user validates the response with JSON schema "createBookingSchema.json"[0m
+2025-06-15 14:10:42.939 [TestNG-PoolService-1] DEBUG com.nahmed.utils.ValidationUtils - Attempting to validate against schema file: C:\Users\iamni\IdeaProjects\API-BDD-Framework\src\main\java\com\nahmed\models\schema\createBookingSchema.json
+2025-06-15 14:10:42.947 [TestNG-PoolService-1] INFO  com.nahmed.utils.ValidationUtils - Successfully validated response against schema: createBookingSchema.json
+2025-06-15 14:10:42.947 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [32m  STEP PASSED: And user validates the response with JSON schema "createBookingSchema.json"[0m
+2025-06-15 14:10:42.948 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [32m*****************************************************************************************[0m
+2025-06-15 14:10:42.948 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [32mFinished Scenario: To create new booking using cucumber Data Table "TC02" --> PASSED[0m
+2025-06-15 14:10:42.948 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [32m  Duration: 1.65 seconds[0m
+2025-06-15 14:10:42.948 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - [32m*****************************************************************************************[0m
+2025-06-15 14:10:42.948 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - 
+2025-06-15 14:10:42.955 [main] INFO  com.nahmed.listeners.TestListener - [35m=========================================================================================[0m
+2025-06-15 14:10:42.955 [main] INFO  com.nahmed.listeners.TestListener - [35m CUCUMBER TEST EXECUTION FINISHED [0m
+2025-06-15 14:10:42.956 [main] INFO  com.nahmed.listeners.TestListener - [32m Overall Status: PASSED[0m
+2025-06-15 14:10:42.956 [main] INFO  com.nahmed.listeners.TestListener - [35m Timestamp: 2025-06-15T08:40:42.951262200Z[0m
+2025-06-15 14:10:42.956 [main] INFO  com.nahmed.listeners.TestListener - [35m=========================================================================================[0m

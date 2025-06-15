@@ -11,15 +11,14 @@ import org.testng.annotations.DataProvider;
                 "rerun:reports/cucumber/rerun_data.txt",
                 "com.nahmed.listeners.TestListener"
         },
-        features = {"src/test/java/com/nahmed/features"},
+        features = {"@reports/cucumber/rerun_data.txt"},
         glue = {"com.nahmed.stepdefinitions",
                 "com.nahmed.events"},
         monochrome = true,
-        snippets = SnippetType.CAMELCASE,
-        tags = "@createBooking"
+        snippets = SnippetType.CAMELCASE
 )
 
-public class TestRunner extends AbstractTestNGCucumberTests {
+public class FailedTestRunner extends AbstractTestNGCucumberTests {
 
     // 1. Parallel Execution Control
     @Override
