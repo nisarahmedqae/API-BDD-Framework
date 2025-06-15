@@ -1,6 +1,7 @@
 package com.nahmed.utils;
 
 import com.nahmed.constants.FrameworkConstants;
+import com.nahmed.reports.ExtentLogger;
 import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.response.Response;
 import org.apache.log4j.LogManager;
@@ -49,11 +50,14 @@ public class ValidationUtils {
         try {
             response.then().assertThat().body(JsonSchemaValidator.matchesJsonSchema(schemaFile));
             LOG.info("Successfully validated response against schema: " + schemaFileName);
+            ExtentLogger.pass("Successfully validated response against schema: " + schemaFileName);
         } catch (AssertionError e) {
             LOG.error("Schema validation failed for: " + schemaFileName + ". Error: " + e.getMessage());
+            ExtentLogger.fail("Schema validation failed for: " + schemaFileName + ". Error: " + e.getMessage());
             throw e; // Re-throw the assertion error so the test fails correctly
         } catch (Exception e) {
             LOG.error("An unexpected error occurred during schema validation for: " + schemaFileName, e);
+            ExtentLogger.fail("An unexpected error occurred during schema validation for: " + schemaFileName);
             fail("Unexpected error during schema validation: " + e.getMessage());
         }
     }
