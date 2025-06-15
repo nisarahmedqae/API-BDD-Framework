@@ -9,7 +9,6 @@ import com.github.dzieciou.testing.curl.Options;
 import com.nahmed.enums.ConfigProperties;
 import io.restassured.RestAssured;
 import io.restassured.config.RestAssuredConfig;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.slf4j.Logger;
@@ -17,12 +16,10 @@ import org.slf4j.LoggerFactory;
 
 public class TestContext {
 
-    // Logger
     private static final Logger LOG = LoggerFactory.getLogger(TestContext.class);
 
     public Response response;
     public Map<String, Object> sessionMap = new ConcurrentHashMap<>();
-    private static final String CONTENT_TYPE = PropertyUtils.getValue(ConfigProperties.CONTENT_TYPE);
 
     // Environment selection
     private static final String ENV_SYSTEM_PROPERTY = "env"; // System property: -Denv=CERT
@@ -79,13 +76,14 @@ public class TestContext {
         RestAssuredConfig config = CurlRestAssuredConfigFactory.createConfig(options);
 
         String bearerToken = "Bearer " + sessionMap.get("oauth_token").toString();
+        String contentType = "application/json";
 
         // Build the request specification
         RequestSpecification request = RestAssured.given()
                 .config(config)
                 .filter(new RestAssuredRequestFilter())
-                .contentType(CONTENT_TYPE)
-                .accept(CONTENT_TYPE)
+                .contentType(contentType)
+                .accept(contentType)
                 .header("Authorization", bearerToken);
 
         return request;
