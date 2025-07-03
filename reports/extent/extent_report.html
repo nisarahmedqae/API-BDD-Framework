@@ -35,7 +35,7 @@
 <a href="#"><span class="badge badge-primary">API-BDD-Framework</span></a>
 </li>
 <li class="m-r-10">
-<a href="#"><span class="badge badge-primary">Jul 3, 2025 09:52:40 pm</span></a>
+<a href="#"><span class="badge badge-primary">Jul 3, 2025 11:31:29 pm</span></a>
 </li>
 </ul>
 </div>
@@ -81,7 +81,7 @@
           <div class="test-detail">
             <p class="name">CreateBooking.feature : TC01 To create new booking using cucumber Data Table</p>
             <p class="text-sm">
-              <span>9:52:41 pm</span> / <span>00:00:00:715</span>
+              <span>11:31:29 pm</span> / <span>00:00:03:208</span>
               <span class="badge fail-bg log float-right">Fail</span>
             </p>
           </div>
@@ -90,9 +90,9 @@
 <div class="p-v-10">
 <div class="info">
 <h5 class="test-status text-fail">CreateBooking.feature : TC01 To create new booking using cucumber Data Table</h5>
-<span class='badge badge-success'>07.03.2025 9:52:41 pm</span>
-<span class='badge badge-danger'>07.03.2025 9:52:41 pm</span>
-<span class='badge badge-default'>00:00:00:715</span>
+<span class='badge badge-success'>07.03.2025 11:31:29 pm</span>
+<span class='badge badge-danger'>07.03.2025 11:31:33 pm</span>
+<span class='badge badge-default'>00:00:03:208</span>
 &middot; <span class='uri-anchor badge badge-default'>#test-id=4</span>
 <span class='badge badge-default pointer float-right ml-1 et'><i class="fa fa-chevron-down"></i></span>
 <span class='badge badge-default pointer float-right ct'><i class="fa fa-chevron-up"></i></span>
@@ -103,13 +103,46 @@
         <div class="card-header">
           <div class="card-toolbar node-info">
             <ul class="list-inline d-none d-sm-block">
-              <li><span class="badge fail-bg log ">Fail</span></li>
-              <li><span class='badge badge-default'>30:00:682</span></li>
+              <li><span class="badge pass-bg log ">Pass</span></li>
+              <li><span class='badge badge-default'>30:00:000</span></li>
               <li></li>
             </ul>
           </div>
           <div class="card-title">
-            <a class="node " id="7"><span>When user creates a booking</span></a>
+            <a class="node " id="7"><span>Given user has access to endpoint "/booking"</span></a>
+            <div class="node-attr">
+            </div>
+          </div>
+        </div>
+        <div class="collapse">
+          <div class="card-body">
+            
+<table class="table table-sm">
+  <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
+  <tbody>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>11:31:29 pm</td>
+        <td>
+          Given user has access to endpoint "/booking" is PASSED
+        </td>
+      </tr>
+  </tbody>
+</table>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-toolbar node-info">
+            <ul class="list-inline d-none d-sm-block">
+              <li><span class="badge fail-bg log ">Fail</span></li>
+              <li><span class='badge badge-default'>30:03:185</span></li>
+              <li></li>
+            </ul>
+          </div>
+          <div class="card-title">
+            <a class="node " id="9"><span>When user creates a booking</span></a>
             <div class="node-attr">
             </div>
           </div>
@@ -121,17 +154,61 @@
   <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
   <tbody>
       <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>11:31:32 pm</td>
+        <td>
+          POST
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>11:31:32 pm</td>
+        <td>
+          https://restful-booker.herokuapp.com/booking
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>11:31:32 pm</td>
+        <td>
+          Accept=application/json, application/javascript, text/javascript, text/json
+Authorization=Bearer mockToken
+Content-Type=application/json
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>11:31:32 pm</td>
+        <td>
+          {"firstname":"John","additionalneeds":"Breakfast","bookingdates":{"checkin":"2021-05-05","checkout":"2021-05-15"},"totalprice":1200,"depositpaid":true,"lastname":"Doe"}
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>11:31:32 pm</td>
+        <td>
+          HTTP/1.1 418 I'm a teapot
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>11:31:32 pm</td>
+        <td>
+          I'm a Teapot
+        </td>
+      </tr>
+      <tr class="event-row">
         <td><span class="badge log fail-bg">Fail</span></td>
-        <td>9:52:41 pm</td>
+        <td>11:31:33 pm</td>
         <td>
           When user creates a booking is FAILED
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log fail-bg">Fail</span></td>
-        <td>9:52:41 pm</td>
+        <td>11:31:33 pm</td>
         <td>
-          java.lang.IllegalArgumentException: path cannot be null
+          java.lang.AssertionError: Booking not created expected object to not be null
         </td>
       </tr>
   </tbody>
@@ -149,7 +226,7 @@
             </ul>
           </div>
           <div class="card-title">
-            <a class="node " id="9"><span>Then user should get the response code 200</span></a>
+            <a class="node " id="11"><span>Then user should get the response code 200</span></a>
             <div class="node-attr">
             </div>
           </div>
@@ -162,7 +239,7 @@
   <tbody>
       <tr class="event-row">
         <td><span class="badge log skip-bg">Skip</span></td>
-        <td>9:52:41 pm</td>
+        <td>11:31:33 pm</td>
         <td>
           Then user should get the response code 200 is SKIPPED
         </td>
@@ -182,7 +259,7 @@
             </ul>
           </div>
           <div class="card-title">
-            <a class="node " id="11"><span>And user validates the response with JSON schema "createBookingSchema.json"</span></a>
+            <a class="node " id="13"><span>And user validates the response with JSON schema "createBookingSchema.json"</span></a>
             <div class="node-attr">
             </div>
           </div>
@@ -195,7 +272,7 @@
   <tbody>
       <tr class="event-row">
         <td><span class="badge log skip-bg">Skip</span></td>
-        <td>9:52:41 pm</td>
+        <td>11:31:33 pm</td>
         <td>
           And user validates the response with JSON schema "createBookingSchema.json" is SKIPPED
         </td>
@@ -223,13 +300,13 @@
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0">Started</p>
-<h3>Jul 3, 2025 09:52:40 pm</h3>
+<h3>Jul 3, 2025 11:31:29 pm</h3>
 </div></div>
 </div>
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0">Ended</p>
-<h3>Jul 3, 2025 09:52:41 pm</h3>
+<h3>Jul 3, 2025 11:31:33 pm</h3>
 </div></div>
 </div>
 <div class="col-md-3">
@@ -280,9 +357,9 @@
 </div>
 </div>
 <div class="card-footer">
-<div><small data-tooltip='0%'><b>0</b> steps passed</small></div>
+<div><small data-tooltip='25%'><b>1</b> steps passed</small></div>
 <div>
-<small data-tooltip='33%'><b>1</b> steps failed,
+<small data-tooltip='25%'><b>1</b> steps failed,
 <b>2</b> skipped, <b data-tooltip='%'>0</b> others
 </small>
 </div>
@@ -300,10 +377,10 @@
 </div>
 </div>
 <div class="card-footer">
-<div><small data-tooltip='0%'><b>0</b> events passed</small></div>
+<div><small data-tooltip='9%'><b>1</b> events passed</small></div>
 <div>
-<small data-tooltip='50%'><b>2</b> events failed,
-<b data-tooltip='%'>2</b> others
+<small data-tooltip='18%'><b>2</b> events failed,
+<b data-tooltip='%'>8</b> others
 </small>
 </div>
 </div>
@@ -319,7 +396,7 @@
 </div></div>
 <script>
 var timeline = {
-"CreateBooking.feature : TC01 To create new booking using cucumber Data Table":0.715
+"CreateBooking.feature : TC01 To create new booking using cucumber Data Table":3.208
 };
 </script>
 <div class="row">
@@ -333,7 +410,7 @@ failParent: 1,
 warningParent: 0,
 skipParent: 0,
 childCount: 5,
-passChild: 0,
+passChild: 1,
 failChild: 1,
 warningChild: 0,
 skipChild: 2,
@@ -345,11 +422,11 @@ warningGrandChild: 0,
 skipGrandChild: 0,
 infoGrandChild: 0,
 eventsCount: 5,
-passEvents: 0,
+passEvents: 1,
 failEvents: 2,
 warningEvents: 0,
 skipEvents: 2,
-infoEvents: 0
+infoEvents: 6
 };
 </script>        </div>
       </div>

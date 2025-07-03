@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.nahmed.builders.RequestSpecBuilderFactory;
 import com.nahmed.utils.ScenarioState;
+import io.cucumber.java.en.Then;
 import io.restassured.response.Response;
 import org.json.JSONObject;
 
@@ -62,6 +63,5 @@ public class CreateBookingStepdefinition {
         assertEquals(bookingDTO.getBooking().getBookingdates().getCheckin(), bookingData.get("checkin"), "Check in Date did not match");
         assertEquals(bookingDTO.getBooking().getBookingdates().getCheckout(), bookingData.get("checkout"), "Check out Date did not match");
     }
-
 
 }
