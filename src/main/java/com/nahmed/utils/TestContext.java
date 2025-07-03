@@ -38,7 +38,7 @@ public class TestContext {
         return currentEnvironment;
     }
 
-    public void generateOAuthToken() {
+    public String generateOAuthToken() {
 
         String tokenUrl = PropertyUtils.getValue(ConfigProperties.TOKEN_URL + currentEnvironment);
         String clientId = PropertyUtils.getValue(ConfigProperties.CLIENT_ID + currentEnvironment);
@@ -59,11 +59,9 @@ public class TestContext {
                 .statusCode(200)
                 .extract().response();
 
-        String accessToken = tokenResponse.jsonPath().getString("access_token");
-        //sessionMap.put("oauth_token", accessToken);
+        return tokenResponse.jsonPath().getString("access_token");
          */
-        sessionMap.put("oauth_token", "accessToken");
-        LOG.info("OAuth2 token successfully generated and stored in session.");
+        return "mock_token";
 
     }
 
@@ -75,7 +73,7 @@ public class TestContext {
         Options options = Options.builder().logStacktrace().build();
         RestAssuredConfig config = CurlRestAssuredConfigFactory.createConfig(options);
 
-        String bearerToken = "Bearer " + sessionMap.get("oauth_token").toString();
+        String bearerToken = "Bearer " + sessionMap.get("access_token").toString();
         String contentType = "application/json";
 
         // Build the request specification
