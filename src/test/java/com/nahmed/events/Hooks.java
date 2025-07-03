@@ -1,6 +1,7 @@
 package com.nahmed.events;
 
 import com.nahmed.enums.ConfigProperties;
+import com.nahmed.utils.ConfigurationManager;
 import com.nahmed.utils.PropertyUtils;
 import com.nahmed.utils.TestContext;
 import io.cucumber.java.After;
@@ -21,26 +22,12 @@ public class Hooks {
 
     @Before(order = 1)
     public void setUp(Scenario scenario) {
-        String environment = testContext.getCurrentEnvironment();
-        if (environment.contains("int")) {
+
+       String currentEnvironment =  ConfigurationManager.getCurrentEnvironment();
+        if (currentEnvironment.contains("int")) {
             LOG.info("INTEGRATION environment selected");
-        } else if (environment.contains("cert")) {
+        } else if (currentEnvironment.contains("cert")) {
             LOG.info("CERTIFICATION environment selected");
-        }
-
-
-        if (scenario.getSourceTagNames().contains("@invalid_token")) {
-            String invalidToken = PropertyUtils.getValue(ConfigProperties.INVALID_TOKEN);
-            testContext.sessionMap.put("access_token", "Bearer " + invalidToken);
-            LOG.info("Invalid bearer token set in session.");
-        } else if (scenario.getSourceTagNames().contains("@expired_token")) {
-            String expiredToken = PropertyUtils.getValue(ConfigProperties.EXPIRED_TOKEN);
-            testContext.sessionMap.put("access_token", "Bearer " + expiredToken);
-            LOG.info("Expired bearer token set in session.");
-        } else {
-            String accessToken = testContext.generateOAuthToken();
-            testContext.sessionMap.put("access_token", "Bearer " + accessToken);
-            LOG.info("Bearer token successfully generated and stored in session.");
         }
 
     }

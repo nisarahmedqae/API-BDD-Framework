@@ -1,12 +1,13 @@
-package com.nahmed.utils;
+package com.nahmed.builders;
 
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.specification.ResponseSpecification;
 
-public class ResponseSpecifications {
+public class ResponseSpecBuilderFactory {
 
-    private ResponseSpecifications() {} // Prevent instantiation
+    private ResponseSpecBuilderFactory() {
+    }
 
     public static ResponseSpecification expectSuccess() {
         return new ResponseSpecBuilder()

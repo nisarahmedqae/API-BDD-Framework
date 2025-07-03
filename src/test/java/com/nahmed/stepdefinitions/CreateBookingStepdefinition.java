@@ -4,6 +4,9 @@ import static org.testng.Assert.*;
 
 import java.util.Map;
 
+import com.nahmed.builders.RequestSpecBuilderFactory;
+import com.nahmed.utils.ScenarioState;
+import io.restassured.response.Response;
 import org.json.JSONObject;
 
 import com.nahmed.models.response.BookingDTO;
@@ -17,11 +20,11 @@ import org.slf4j.LoggerFactory;
 
 public class CreateBookingStepdefinition {
 
-    private TestContext testContext;
+    private final ScenarioState scenarioState;
     private static final Logger LOG = LoggerFactory.getLogger(CreateBookingStepdefinition.class);
 
-    public CreateBookingStepdefinition(TestContext testContext) {
-        this.testContext = testContext;
+    public CreateBookingStepdefinition(ScenarioState scenarioState) {
+        this.scenarioState = scenarioState;
     }
 
     @When("user creates a booking")
@@ -37,14 +40,14 @@ public class CreateBookingStepdefinition {
         bookingDates.put("checkout", (bookingData.get("checkout")));
         bookingBody.put("bookingdates", bookingDates);
         bookingBody.put("additionalneeds", bookingData.get("additionalneeds"));
-        System.out.println(testContext.sessionMap.get("endpoint"));
-        testContext.response = testContext.requestSetup().body(bookingBody.toString())
-                .when().post(testContext.sessionMap.get("endpoint").toString());
-
-        BookingDTO bookingDTO = ResponseHandler.deserializedResponse(testContext.response, BookingDTO.class);
+        Response response = RequestSpecBuilderFactory.createAuthenticatedRequestSpec().auth().basic("admin", "password123")
+                .body(bookingBody.toString())
+                .when().post(scenarioState.getData("endpoint", String.class));
+        scenarioState.setResponse(response);
+        BookingDTO bookingDTO = ResponseHandler.deserializedResponse(response, BookingDTO.class);
         assertNotNull(bookingDTO, "Booking not created");
         LOG.info("Newly created booking ID: " + bookingDTO.getBookingid());
-        testContext.sessionMap.put("bookingID", bookingDTO.getBookingid());
+        scenarioState.setData("bookingID", bookingDTO.getBookingid());
         validateBookingData(new JSONObject(bookingData), bookingDTO);
     }
 
