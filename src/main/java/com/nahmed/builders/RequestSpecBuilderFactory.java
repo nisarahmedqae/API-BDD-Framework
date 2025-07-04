@@ -13,16 +13,18 @@ import io.restassured.specification.RequestSpecification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public final class RequestSpecBuilderFactory {
+public class RequestSpecBuilderFactory {
 
     private static final Logger LOG = LoggerFactory.getLogger(RequestSpecBuilderFactory.class);
+    private final AuthManager authManager;
+    private final String baseUrl;
 
-    private RequestSpecBuilderFactory() {
+    public RequestSpecBuilderFactory(AuthManager authManager) {
+        this.authManager = authManager;
+        this.baseUrl = PropertyUtils.getValue(ConfigProperties.BASE_URL + ConfigurationManager.getCurrentEnvironment());
     }
 
-    private static RequestSpecification createBaseRequestSpec() {
-        RestAssured.baseURI = PropertyUtils.getValue(ConfigProperties.BASE_URL + ConfigurationManager.getCurrentEnvironment());
-
+    private RequestSpecification createBaseRequestSpec() {
         // Set up RestAssured to log requests as cURL commands
         Options options = Options.builder()
                 .logStacktrace()
@@ -31,25 +33,31 @@ public final class RequestSpecBuilderFactory {
 
         // Build the request specification
         return RestAssured.given()
+                .baseUri(this.baseUrl)
                 .config(config)
                 .filter(new RestAssuredRequestFilter())
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON);
+                .header("Content-Type", "application/json; charset=UTF-8")
+                .header("Accept", "application/json");
     }
 
-    public static RequestSpecification createAuthenticatedRequestSpec() {
+    public RequestSpecification createRequestSpec() {
+        LOG.info("Creating a new unauthenticated request specification.");
+        return createBaseRequestSpec();
+    }
+
+    public RequestSpecification createAuthenticatedRequestSpec() {
         LOG.info("Bearer token successfully generated and stored in session.");
         return createBaseRequestSpec()
-                .header("Authorization", AuthManager.getInstance().getBearerToken());
+                .header("Authorization", authManager.getBearerToken());
     }
 
-    public static RequestSpecification createRequestSpecWithInvalidToken() {
+    public RequestSpecification createRequestSpecWithInvalidToken() {
         LOG.info("Invalid bearer token set in session.");
         return createBaseRequestSpec()
                 .header("Authorization", PropertyUtils.getValue(ConfigProperties.INVALID_TOKEN));
     }
 
-    public static RequestSpecification createRequestSpecWithExpiredToken() {
+    public RequestSpecification createRequestSpecWithExpiredToken() {
         LOG.info("Expired bearer token set in session.");
         return createBaseRequestSpec()
                 .header("Authorization", PropertyUtils.getValue(ConfigProperties.EXPIRED_TOKEN));

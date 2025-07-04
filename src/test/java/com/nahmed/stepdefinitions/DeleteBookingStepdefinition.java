@@ -1,7 +1,7 @@
 package com.nahmed.stepdefinitions;
 
 import com.nahmed.builders.RequestSpecBuilderFactory;
-import com.nahmed.utils.ScenarioState;
+import com.nahmed.utils.TestContext;
 import com.nahmed.utils.TestContext;
 
 import io.cucumber.java.en.When;
@@ -11,19 +11,21 @@ import org.slf4j.LoggerFactory;
 
 public class DeleteBookingStepdefinition {
 
-    private final ScenarioState scenarioState;
     private static final Logger LOG = LoggerFactory.getLogger(DeleteBookingStepdefinition.class);
+    private final TestContext testContext;
+    private final RequestSpecBuilderFactory requestSpecFactory;
 
-    public DeleteBookingStepdefinition(ScenarioState scenarioState) {
-        this.scenarioState = scenarioState;
+    public DeleteBookingStepdefinition(TestContext testContext, RequestSpecBuilderFactory requestSpecFactory) {
+        this.testContext = testContext;
+        this.requestSpecFactory = requestSpecFactory;
     }
 
     @When("user makes a request to delete booking with basic auth {string} & {string}")
     public void userMakesARequestToDeleteBookingWithBasicAuth(String username, String password) {
-        Response response = RequestSpecBuilderFactory.createAuthenticatedRequestSpec()
+        Response response = requestSpecFactory.createAuthenticatedRequestSpec()
                 .auth().preemptive().basic(username, password)
-                .pathParam("bookingID", scenarioState.getData("bookingID", String.class))
-                .when().delete(scenarioState.getData("endpoint", String.class) + "/{bookingID}");
-        scenarioState.setResponse(response);
+                .pathParam("bookingID", testContext.getData("bookingID", Integer.class))
+                .when().delete(testContext.getData("endpoint", String.class) + "/{bookingID}");
+        testContext.setResponse(response);
     }
 }

@@ -36,11 +36,14 @@ public final class ExtentReport {
         }
         ExtentManager.unload(); // Unloads ExtentManager's context
         ExtentStepManager.unload(); // Clean up scenario context
+        /*
         try {
             Desktop.getDesktop().browse(new File(FrameworkConstants.getExtentReportFilePath()).toURI());
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+         */
     }
 
     public static void createTest(String testCaseName) {

@@ -5,7 +5,7 @@ import static org.testng.Assert.*;
 import java.util.Map;
 
 import com.nahmed.builders.RequestSpecBuilderFactory;
-import com.nahmed.utils.ScenarioState;
+import com.nahmed.utils.TestContext;
 import io.restassured.response.Response;
 import org.json.JSONObject;
 
@@ -20,11 +20,13 @@ import org.slf4j.LoggerFactory;
 
 public class UpdateBookingStepdefinition {
 
-    private final ScenarioState scenarioState;
     private static final Logger LOG = LoggerFactory.getLogger(UpdateBookingStepdefinition.class);
+    private final TestContext testContext;
+    private final RequestSpecBuilderFactory requestSpecFactory;
 
-    public UpdateBookingStepdefinition(ScenarioState scenarioState) {
-        this.scenarioState = scenarioState;
+    public UpdateBookingStepdefinition(TestContext testContext, RequestSpecBuilderFactory requestSpecFactory) {
+        this.testContext = testContext;
+        this.requestSpecFactory = requestSpecFactory;
     }
 
     @When("user creates a auth token with credential {string} & {string}")
@@ -32,13 +34,13 @@ public class UpdateBookingStepdefinition {
         JSONObject credentials = new JSONObject();
         credentials.put("username", username);
         credentials.put("password", password);
-        Response response = RequestSpecBuilderFactory.createAuthenticatedRequestSpec()
+        Response response = requestSpecFactory.createAuthenticatedRequestSpec()
                 .body(credentials.toString())
-                .when().post(scenarioState.getData("endpoint", String.class));
-        scenarioState.setResponse(response);
+                .when().post(testContext.getData("endpoint", String.class));
+        testContext.setResponse(response);
         String token = response.path("token");
         LOG.info("Auth Token: " + token);
-        scenarioState.setData("token", "token=" + token);
+        testContext.setData("token", "token=" + token);
     }
 
     @When("user updates the details of a booking")
@@ -55,12 +57,12 @@ public class UpdateBookingStepdefinition {
         bookingBody.put("bookingdates", bookingDates);
         bookingBody.put("additionalneeds", bookingData.get("additionalneeds"));
 
-        Response response = RequestSpecBuilderFactory.createAuthenticatedRequestSpec()
-                .header("Cookie", scenarioState.getData("token", String.class))
-                .pathParam("bookingID", scenarioState.getData("bookingID", String.class))
+        Response response = requestSpecFactory.createAuthenticatedRequestSpec()
+                .header("Cookie", testContext.getData("token", String.class))
+                .pathParam("bookingID", testContext.getData("bookingID", String.class))
                 .body(bookingBody.toString())
-                .when().put(scenarioState.getData("endpoint", String.class) + "/{bookingID}");
-        scenarioState.setResponse(response);
+                .when().put(testContext.getData("endpoint", String.class) + "/{bookingID}");
+        testContext.setResponse(response);
         BookingDetailsDTO bookingDetailsDTO = ResponseHandler.deserializedResponse(response, BookingDetailsDTO.class);
         assertNotNull(bookingDetailsDTO, "Booking not created");
     }
@@ -72,12 +74,12 @@ public class UpdateBookingStepdefinition {
         body.put("firstname", firstName);
         body.put("lastname", lastName);
 
-        Response response = RequestSpecBuilderFactory.createAuthenticatedRequestSpec()
-                .header("Cookie", scenarioState.getData("token", String.class))
-                .pathParam("bookingID", scenarioState.getData("bookingID", String.class))
+        Response response = requestSpecFactory.createAuthenticatedRequestSpec()
+                .header("Cookie", testContext.getData("token", String.class))
+                .pathParam("bookingID", testContext.getData("bookingID", Integer.class))
                 .body(body.toString())
-                .when().patch(scenarioState.getData("endpoint", String.class) + "/{bookingID}");
-        scenarioState.setResponse(response);
+                .when().patch(testContext.getData("endpoint", String.class) + "/{bookingID}");
+        testContext.setResponse(response);
         BookingDetailsDTO bookingDetailsDTO = ResponseHandler.deserializedResponse(response, BookingDetailsDTO.class);
         assertNotNull(bookingDetailsDTO, "Booking not created");
         assertEquals(bookingDetailsDTO.getFirstname(), firstName, "First Name did not match");

@@ -16,7 +16,7 @@ import org.testng.annotations.DataProvider;
                 "com.nahmed.events"},
         monochrome = true,
         snippets = SnippetType.CAMELCASE,
-        tags = "@createBooking"
+        tags = "@bookerAPI" //bookerAPI //createBooking
 )
 
 public class TestRunner extends AbstractTestNGCucumberTests {
@@ -30,7 +30,7 @@ public class TestRunner extends AbstractTestNGCucumberTests {
 
     // 2. Thread Count Configuration
     static {
-        System.setProperty("dataproviderthreadcount", "1");
+        System.setProperty("dataproviderthreadcount", "5");
     }
 
 }

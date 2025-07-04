@@ -23,11 +23,17 @@ public class Hooks {
     @Before(order = 1)
     public void setUp(Scenario scenario) {
 
-       String currentEnvironment =  ConfigurationManager.getCurrentEnvironment();
-        if (currentEnvironment.contains("int")) {
-            LOG.info("INTEGRATION environment selected");
-        } else if (currentEnvironment.contains("cert")) {
-            LOG.info("CERTIFICATION environment selected");
+        String currentEnvironment = ConfigurationManager.getCurrentEnvironment();
+        switch (currentEnvironment.toUpperCase()) {
+            case "_INT":
+                LOG.info("Environment selected: INTEGRATION");
+                break;
+            case "_CERT":
+                LOG.info("Environment selected: CERTIFICATION");
+                break;
+            default:
+                LOG.warn("Default environment selected: {}", currentEnvironment);
+                break;
         }
 
     }

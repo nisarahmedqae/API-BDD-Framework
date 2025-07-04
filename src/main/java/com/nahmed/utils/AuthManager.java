@@ -7,15 +7,6 @@ import io.restassured.response.Response;
 
 public class AuthManager {
 
-    private static final AuthManager instance = new AuthManager();
-
-    private AuthManager() {
-    }
-
-    public static AuthManager getInstance() {
-        return instance;
-    }
-
     public String getBearerToken() {
 
         String tokenUrl = PropertyUtils.getValue(ConfigProperties.TOKEN_URL + ConfigurationManager.getCurrentEnvironment());

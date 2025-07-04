@@ -3,37 +3,38 @@ package com.nahmed.utils;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 
 public final class TestContext {
-/*
-    private static final Logger LOG = LoggerFactory.getLogger(TestContext.class);
-    private static final TestContext instance = new TestContext();
-    private final Map<String, Object> store = new ConcurrentHashMap<>();
 
-    private TestContext() {
+    private final Map<String, Object> data = new ConcurrentHashMap<>();
+    private RequestSpecification request;
+    private Response response;
+
+    // Getters and Setters
+    public RequestSpecification getRequest() {
+        return request;
     }
 
-    public static TestContext getInstance() {
-        return instance;
+    public void setRequest(RequestSpecification request) {
+        this.request = request;
     }
 
-    public void set(String key, Object value) {
-        LOG.debug("[Thread: {}] Storing in context: Key='{}'", Thread.currentThread().getId(), key);
-        store.put(key, value);
+    public Response getResponse() {
+        return response;
     }
 
-    public <T> T get(String key, Class<T> type) {
-        Object value = store.get(key);
-        LOG.debug("[Thread: {}] Retrieving from context: Key='{}'", Thread.currentThread().getId(), key);
-        return (value == null) ? null : type.cast(value);
+    public void setResponse(Response response) {
+        this.response = response;
     }
 
-    public void remove(String key) {
-        store.remove(key);
+    public <T> T getData(String key, Class<T> type) {
+        return type.cast(data.get(key));
     }
 
- */
+    public void setData(String key, Object value) {
+        data.put(key, value);
+    }
 
 }
