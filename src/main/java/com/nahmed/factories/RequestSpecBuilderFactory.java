@@ -1,4 +1,4 @@
-package com.nahmed.builders;
+package com.nahmed.factories;
 
 import com.github.dzieciou.testing.curl.CurlRestAssuredConfigFactory;
 import com.github.dzieciou.testing.curl.Options;

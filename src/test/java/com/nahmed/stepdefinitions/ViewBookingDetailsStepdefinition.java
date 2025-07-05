@@ -2,7 +2,7 @@ package com.nahmed.stepdefinitions;
 
 import static org.testng.Assert.*;
 
-import com.nahmed.builders.RequestSpecBuilderFactory;
+import com.nahmed.factories.RequestSpecBuilderFactory;
 import com.nahmed.utils.TestContext;
 import com.nahmed.utils.ValidationUtils;
 

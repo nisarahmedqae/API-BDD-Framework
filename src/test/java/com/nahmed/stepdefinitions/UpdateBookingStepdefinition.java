@@ -4,7 +4,7 @@ import static org.testng.Assert.*;
 
 import java.util.Map;
 
-import com.nahmed.builders.RequestSpecBuilderFactory;
+import com.nahmed.factories.RequestSpecBuilderFactory;
 import com.nahmed.utils.TestContext;
 import io.restassured.response.Response;
 import org.json.JSONObject;

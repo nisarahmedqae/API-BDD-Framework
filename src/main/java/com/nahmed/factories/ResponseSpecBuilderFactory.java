@@ -1,4 +1,4 @@
-package com.nahmed.builders;
+package com.nahmed.factories;
 
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.http.ContentType;
