@@ -2,7 +2,6 @@ package com.nahmed.stepdefinitions;
 
 import com.nahmed.builders.RequestSpecBuilderFactory;
 import com.nahmed.utils.TestContext;
-import com.nahmed.utils.TestContext;
 
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
@@ -22,7 +21,7 @@ public class DeleteBookingStepdefinition {
 
     @When("user makes a request to delete booking with basic auth {string} & {string}")
     public void userMakesARequestToDeleteBookingWithBasicAuth(String username, String password) {
-        Response response = requestSpecFactory.createAuthenticatedRequestSpec()
+        Response response = requestSpecFactory.createRequestSpec()
                 .auth().preemptive().basic(username, password)
                 .pathParam("bookingID", testContext.getData("bookingID", Integer.class))
                 .when().delete(testContext.getData("endpoint", String.class) + "/{bookingID}");

@@ -8,7 +8,6 @@ import com.nahmed.utils.ConfigurationManager;
 import com.nahmed.utils.PropertyUtils;
 import io.restassured.RestAssured;
 import io.restassured.config.RestAssuredConfig;
-import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -16,7 +16,7 @@ import org.testng.annotations.DataProvider;
                 "com.nahmed.events"},
         monochrome = true,
         snippets = SnippetType.CAMELCASE,
-        tags = "@bookerAPI" //bookerAPI //createBooking
+        tags = "@createBooking" //bookerAPI //createBooking
 )
 
 public class TestRunner extends AbstractTestNGCucumberTests {

@@ -33,7 +33,7 @@ public class ViewBookingDetailsStepdefinition {
 
     @When("user makes a request to view booking IDs")
     public void userMakesARequestToViewBookingIDs() {
-        Response response = requestSpecFactory.createAuthenticatedRequestSpec()
+        Response response = requestSpecFactory.createRequestSpec()
                 .when().get(testContext.getData("endpoint", String.class));
         testContext.setResponse(response);
         int bookingID = response.getBody().jsonPath().getInt("[0].bookingid");
@@ -58,7 +58,7 @@ public class ViewBookingDetailsStepdefinition {
     public void userMakesARequestToViewDetailsOfBookingID() {
         Integer bookingID = testContext.getData("bookingID", Integer.class);
         LOG.info("Session BookingID: " + bookingID);
-        Response response = requestSpecFactory.createAuthenticatedRequestSpec().pathParam("bookingID", bookingID)
+        Response response = requestSpecFactory.createRequestSpec().pathParam("bookingID", bookingID)
                 .when().get(testContext.getData("endpoint", String.class) + "/{bookingID}");
         testContext.setResponse(response);
         BookingDetailsDTO bookingDetails = ResponseHandler.deserializedResponse(response, BookingDetailsDTO.class);
@@ -69,7 +69,7 @@ public class ViewBookingDetailsStepdefinition {
 
     @Given("user makes a request to view booking IDs from {string} to {string}")
     public void userMakesARequestToViewBookingFromTo(String checkin, String checkout) {
-        Response response = requestSpecFactory.createAuthenticatedRequestSpec()
+        Response response = requestSpecFactory.createRequestSpec()
                 .queryParams("checkin", checkin, "checkout", checkout)
                 .when().get(testContext.getData("endpoint", String.class));
         testContext.setResponse(response);
@@ -81,7 +81,7 @@ public class ViewBookingDetailsStepdefinition {
         String lastname = testContext.getData("lastname", String.class);
         LOG.info("Session firstname: " + firstname);
         LOG.info("Session lastname: " + lastname);
-        Response response = requestSpecFactory.createAuthenticatedRequestSpec()
+        Response response = requestSpecFactory.createRequestSpec()
                 .queryParams("firstname", firstname, "lastname", lastname)
                 .when().get(testContext.getData("endpoint", String.class));
         testContext.setResponse(response);
@@ -96,7 +96,7 @@ public class ViewBookingDetailsStepdefinition {
 
     @When("user makes a request to check the health of booking service")
     public void userMakesARequestToCheckTheHealthOfBookingService() {
-        Response response = requestSpecFactory.createAuthenticatedRequestSpec()
+        Response response = requestSpecFactory.createRequestSpec()
                 .get(testContext.getData("endpoint", String.class));
         testContext.setResponse(response);
     }

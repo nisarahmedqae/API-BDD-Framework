@@ -6,13 +6,11 @@ import java.util.Map;
 
 import com.nahmed.builders.RequestSpecBuilderFactory;
 import com.nahmed.utils.TestContext;
-import io.cucumber.java.en.Then;
 import io.restassured.response.Response;
 import org.json.JSONObject;
 
 import com.nahmed.models.response.BookingDTO;
 import com.nahmed.utils.ResponseHandler;
-import com.nahmed.utils.TestContext;
 
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.When;

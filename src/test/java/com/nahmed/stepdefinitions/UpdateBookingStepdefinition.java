@@ -11,7 +11,6 @@ import org.json.JSONObject;
 
 import com.nahmed.models.response.BookingDetailsDTO;
 import com.nahmed.utils.ResponseHandler;
-import com.nahmed.utils.TestContext;
 
 import io.cucumber.java.en.When;
 import io.cucumber.datatable.DataTable;
@@ -34,7 +33,7 @@ public class UpdateBookingStepdefinition {
         JSONObject credentials = new JSONObject();
         credentials.put("username", username);
         credentials.put("password", password);
-        Response response = requestSpecFactory.createAuthenticatedRequestSpec()
+        Response response = requestSpecFactory.createRequestSpec()
                 .body(credentials.toString())
                 .when().post(testContext.getData("endpoint", String.class));
         testContext.setResponse(response);
@@ -57,9 +56,9 @@ public class UpdateBookingStepdefinition {
         bookingBody.put("bookingdates", bookingDates);
         bookingBody.put("additionalneeds", bookingData.get("additionalneeds"));
 
-        Response response = requestSpecFactory.createAuthenticatedRequestSpec()
+        Response response = requestSpecFactory.createRequestSpec()
                 .header("Cookie", testContext.getData("token", String.class))
-                .pathParam("bookingID", testContext.getData("bookingID", String.class))
+                .pathParam("bookingID", testContext.getData("bookingID", Integer.class))
                 .body(bookingBody.toString())
                 .when().put(testContext.getData("endpoint", String.class) + "/{bookingID}");
         testContext.setResponse(response);
@@ -74,7 +73,7 @@ public class UpdateBookingStepdefinition {
         body.put("firstname", firstName);
         body.put("lastname", lastName);
 
-        Response response = requestSpecFactory.createAuthenticatedRequestSpec()
+        Response response = requestSpecFactory.createRequestSpec()
                 .header("Cookie", testContext.getData("token", String.class))
                 .pathParam("bookingID", testContext.getData("bookingID", Integer.class))
                 .body(body.toString())
