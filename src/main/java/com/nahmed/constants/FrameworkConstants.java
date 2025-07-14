@@ -13,6 +13,7 @@ public final class FrameworkConstants {
     private static final String CONFIG_FILE_PATH = RESOURCES_FOLDER_PATH + "\\config.properties";
     private static final String EXTENT_REPORT_FOLDER_PATH = System.getProperty("user.dir") + "\\reports\\extent";
     private static final String SCHEMA_FOLDER_PATH = System.getProperty("user.dir") + "\\src\\main\\java\\com\\nahmed\\models\\schema\\";
+    private static final String DATA_STORE_FILE_PATH = RESOURCES_FOLDER_PATH + "\\data_store.txt";
 
     private static String extentReportFilePath = "";
 
@@ -37,6 +38,10 @@ public final class FrameworkConstants {
 
     public static String getSchemaFolderPath() {
         return SCHEMA_FOLDER_PATH;
+    }
+
+    public static String getDataStoreFilePath() {
+        return DATA_STORE_FILE_PATH;
     }
 
 }

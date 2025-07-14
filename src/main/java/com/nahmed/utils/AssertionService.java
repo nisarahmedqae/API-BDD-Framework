@@ -7,6 +7,12 @@ import java.util.regex.Pattern;
 
 public class AssertionService {
 
+    public static void isDigitsOnly(String input) {
+        if (input == null || !input.matches("\\d+")) {
+            throw new IllegalArgumentException("Value must contain only digits, but was: " + input);
+        }
+    }
+
     public static void assertDigitCount(String input, int expectedDigitCount) {
         Assert.assertNotNull(input, "String should not be null");
         String regex = "^\\d{" + expectedDigitCount + "}$";
