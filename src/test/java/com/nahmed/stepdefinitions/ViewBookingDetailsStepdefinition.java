@@ -43,8 +43,8 @@ public class ViewBookingDetailsStepdefinition {
     }
 
     @Then("user should get the response code {int}")
-    public void userShpuldGetTheResponseCode(Integer statusCode) {
-        assertEquals(Long.valueOf(statusCode), Long.valueOf(testContext.getResponse().getStatusCode()));
+    public void userShpuldGetTheResponseCode(int statusCode) {
+        assertEquals(testContext.getResponse().getStatusCode(), statusCode);
     }
 
 

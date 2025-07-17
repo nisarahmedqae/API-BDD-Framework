@@ -51,34 +51,4 @@ public final class PropertyUtils {
         return CONFIGMAP.get(key.toLowerCase());
     }
 
-    // Method to read a data_store property value
-    public static String getProperty(String key) {
-        Properties properties = new Properties();
-        try (FileInputStream fis = new FileInputStream(FrameworkConstants.getDataStoreFilePath())) {
-            properties.load(fis);
-            return properties.getProperty(key);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    // Method to update a data_store property value
-    public static void setProperty(String key, String value) {
-        Properties properties = new Properties();
-        try (FileInputStream fis = new FileInputStream(FrameworkConstants.getDataStoreFilePath())) {
-            properties.load(fis); // Load existing properties
-        } catch (IOException e) {
-            System.out.println("Could not load existing properties: " + e.getMessage());
-        }
-
-        properties.setProperty(key, value); // Set/update the property
-
-        try (FileOutputStream fos = new FileOutputStream(FrameworkConstants.getDataStoreFilePath())) {
-            properties.store(fos, "Updated during testing"); // Store back to file
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 }
