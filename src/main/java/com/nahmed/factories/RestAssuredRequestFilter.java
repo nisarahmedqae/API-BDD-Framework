@@ -33,8 +33,8 @@ public class RestAssuredRequestFilter implements Filter {
         LOG.info(ANSI_CYAN + " Request Header =>\n{}" + ANSI_RESET, requestSpec.getHeaders());
         ExtentLogger.info(requestSpec.getHeaders().toString());
 
-        String rawRequestBody = requestSpec.getBody().toString();
-        String prettyRequestBody = rawRequestBody != null ? RequestHandler.prettyPrint(rawRequestBody) : "[No Request Body]";
+        Object rawRequestBody = requestSpec.getBody();
+        String prettyRequestBody = rawRequestBody != null ? RequestHandler.prettyPrint(rawRequestBody.toString()) : "[No Request Body]";
         LOG.info(ANSI_CYAN + " Request Body => \n{}" + ANSI_RESET, prettyRequestBody);
         ExtentLogger.info(prettyRequestBody);
 
