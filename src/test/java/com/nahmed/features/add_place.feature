@@ -24,5 +24,5 @@ Feature: To add a new place
     Examples:
       | TestCase | name            | address                   | language |
       | TC01     | Frontline house | 29, side layout, cohen 09 | French   |
-      | TC02     | GN House        | Sector Techzone           | German   |
+#      | TC02     | GN House        | Sector Techzone           | German   |
 

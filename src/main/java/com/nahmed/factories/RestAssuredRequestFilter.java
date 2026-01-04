@@ -25,24 +25,32 @@ public class RestAssuredRequestFilter implements Filter {
         LOG.info(ANSI_CYAN + "-----------------------------------------------------------------------------------------" + ANSI_RESET);
 
         LOG.info(ANSI_CYAN + " Request Method => {}" + ANSI_RESET, requestSpec.getMethod());
-        ExtentLogger.info(requestSpec.getMethod());
+        ExtentLogger.info("Request Method => " + requestSpec.getMethod());
 
         LOG.info(ANSI_CYAN + " Request URI => {}" + ANSI_RESET, requestSpec.getURI());
-        ExtentLogger.info(requestSpec.getURI());
+        ExtentLogger.info("Request URI => " + requestSpec.getURI());
 
-        LOG.info(ANSI_CYAN + " Request Header =>\n{}" + ANSI_RESET, requestSpec.getHeaders());
-        ExtentLogger.info(requestSpec.getHeaders().toString());
+        LOG.info(ANSI_CYAN + " Request Headers =>\n{}" + ANSI_RESET, requestSpec.getHeaders());
+        var headerList = requestSpec.getHeaders().asList();
+        if (!headerList.isEmpty()) {
+            String[][] headerTable = headerList.stream()
+                    .map(h -> new String[]{h.getName(), h.getValue()})
+                    .toArray(String[][]::new);
+            ExtentLogger.infoInTable(headerTable);
+        } else {
+            ExtentLogger.info("Request Headers: [None]");
+        }
 
         Object rawRequestBody = requestSpec.getBody();
         String prettyRequestBody = rawRequestBody != null ? RequestHandler.prettyPrint(rawRequestBody.toString()) : "[No Request Body]";
         LOG.info(ANSI_CYAN + " Request Body => \n{}" + ANSI_RESET, prettyRequestBody);
-        ExtentLogger.info(prettyRequestBody);
+        ExtentLogger.infoInJSON(prettyRequestBody);
 
         LOG.info(ANSI_CYAN + "\n Response Status => {}" + ANSI_RESET, response.getStatusLine());
         ExtentLogger.info(response.getStatusLine());
 
-        //LOG.info(ANSI_CYAN + " Response Body => \n{}" + ANSI_RESET, response.getBody().prettyPrint());
-        ExtentLogger.info(response.getBody().prettyPrint());
+        LOG.info(" Response Body => \n{}" + ANSI_RESET, response.asPrettyString());
+        ExtentLogger.infoInJSON(response.asPrettyString());
 
         LOG.info(ANSI_CYAN + "-----------------------------------------------------------------------------------------" + ANSI_RESET);
 

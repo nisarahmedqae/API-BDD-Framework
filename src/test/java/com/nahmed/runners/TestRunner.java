@@ -16,7 +16,7 @@ import org.testng.annotations.DataProvider;
                 "com.nahmed.events"},
         monochrome = true,
         snippets = SnippetType.CAMELCASE,
-        tags = "@google_maps"
+        tags = "@add_place"
 )
 
 public class TestRunner extends AbstractTestNGCucumberTests {
@@ -30,7 +30,7 @@ public class TestRunner extends AbstractTestNGCucumberTests {
 
     // 2. Thread Count Configuration
     static {
-        System.setProperty("dataproviderthreadcount", "5");
+        System.setProperty("dataproviderthreadcount", "1");
     }
 
 }

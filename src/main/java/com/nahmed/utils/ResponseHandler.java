@@ -16,14 +16,9 @@ public class ResponseHandler {
     public static <T> T deserializedResponse(Response response, Class<T> clazz) { // Use Class<T>
         T responseDeserialized = null;
         try {
-            String responseBody = response.asString(); // Get body once
+            String responseBody = response.asString();
             responseDeserialized = mapper.readValue(responseBody, clazz);
-
-            if (LOG.isDebugEnabled()) {
-                String jsonStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(responseDeserialized);
-                LOG.debug("Handling Response (Deserialized): \n{}", jsonStr);
-                LOG.debug("Successfully deserialized response to type: {}", clazz.getName());
-            }
+            LOG.debug("Successfully deserialized response to class: {}", clazz.getName());
 
         } catch (IOException e) {
             LOG.error("Error deserializing response body to {}. Response Body:\n{}", clazz.getName(), response.asString(), e);

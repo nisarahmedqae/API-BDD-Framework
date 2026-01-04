@@ -1,5 +1,8 @@
 package com.nahmed.reports;
 
+import com.aventstack.extentreports.markuputils.CodeLanguage;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
+
 public final class ExtentLogger {
 
     private ExtentLogger() {
@@ -20,6 +23,14 @@ public final class ExtentLogger {
 
     public static void info(String message) {
         ExtentManager.getExtentTest().info(message);
+    }
+
+    public static void infoInJSON(String json) {
+        ExtentManager.getExtentTest().info(MarkupHelper.createCodeBlock(json, CodeLanguage.JSON));
+    }
+
+    public static void infoInTable(String[][] data) {
+        ExtentManager.getExtentTest().info(MarkupHelper.createTable(data));
     }
 
 }
