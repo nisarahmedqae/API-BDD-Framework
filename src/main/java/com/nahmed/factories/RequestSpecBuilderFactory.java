@@ -3,6 +3,7 @@ package com.nahmed.factories;
 import com.github.dzieciou.testing.curl.CurlRestAssuredConfigFactory;
 import com.github.dzieciou.testing.curl.Options;
 import com.nahmed.enums.ConfigProperties;
+import com.nahmed.listeners.RestAssuredRequestFilter;
 import com.nahmed.utils.AuthManager;
 import com.nahmed.utils.ConfigurationManager;
 import com.nahmed.utils.PropertyUtils;
@@ -61,5 +62,4 @@ public class RequestSpecBuilderFactory {
         return createBaseRequestSpec()
                 .header("Authorization", PropertyUtils.getValue(ConfigProperties.EXPIRED_TOKEN));
     }
-
 }

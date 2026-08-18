@@ -30,7 +30,7 @@ public final class ExtentReport {
             extent.attachReporter(spark);
             spark.config().setTheme(Theme.STANDARD);
             spark.config().setDocumentTitle("Test Results");
-            spark.config().setReportName("playwright-bdd-framework");
+            spark.config().setReportName("restassured-bdd-framework");
         }
     }
 

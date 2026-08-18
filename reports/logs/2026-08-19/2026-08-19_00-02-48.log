@@ -1,0 +1,72 @@
+2026-08-19 00:02:48.940 [main] INFO  org.testng.internal.Utils - [TestNG] Running:
+  /Users/nisarahmed/Library/Caches/JetBrains/IntelliJIdea2026.1/temp-testng-customsuite.xml
+
+2026-08-19 00:02:49.103 [main] INFO  com.nahmed.listeners.TestListener - ==========================================================================
+2026-08-19 00:02:49.103 [main] INFO  com.nahmed.listeners.TestListener -  CUCUMBER TEST EXECUTION STARTED 
+2026-08-19 00:02:49.103 [main] INFO  com.nahmed.listeners.TestListener -  Timestamp: 2026-08-18T18:32:49.103781Z
+2026-08-19 00:02:49.103 [main] INFO  com.nahmed.listeners.TestListener - ==========================================================================
+2026-08-19 00:02:49.218 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - ********************************************************************************
+2026-08-19 00:02:49.218 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - Feature: add_place.feature
+2026-08-19 00:02:49.218 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - Starting Scenario: TC01: Verify that the POST /maps/api/place/add/json endpoint returns a successful response with a valid request body (Line: 26)
+2026-08-19 00:02:49.218 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - Tags: @add_place, @google_maps, @add_place
+2026-08-19 00:02:49.218 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - ********************************************************************************
+2026-08-19 00:02:49.218 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener -  HOOK BEFORE : com.nahmed.events.Hooks.setUp(io.cucumber.java.Scenario)
+2026-08-19 00:02:49.219 [TestNG-PoolService-1] INFO  com.nahmed.events.Hooks - Environment selected: INTEGRATION
+2026-08-19 00:02:49.219 [TestNG-PoolService-1] INFO  com.nahmed.events.Hooks - Starting scenario: TC01: Verify that the POST /maps/api/place/add/json endpoint returns a successful response with a valid request body | tags: [@add_place, @google_maps, @add_place]
+2026-08-19 00:02:49.220 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener -  STEP PASSED: HOOK BEFORE : com.nahmed.events.Hooks.setUp(io.cucumber.java.Scenario)
+2026-08-19 00:02:49.220 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener -  When the user sends a POST request to the "/maps/api/place/add/json" endpoint with the following body:
+2026-08-19 00:02:49.221 [TestNG-PoolService-1] INFO  c.n.f.RequestSpecBuilderFactory - Creating a new unauthenticated request specification.
+2026-08-19 00:02:52.550 [TestNG-PoolService-1] INFO  c.n.l.RestAssuredRequestFilter - ------------------------------------------------------------------
+2026-08-19 00:02:52.550 [TestNG-PoolService-1] INFO  c.n.l.RestAssuredRequestFilter - Request Method => POST
+2026-08-19 00:02:52.551 [TestNG-PoolService-1] INFO  c.n.l.RestAssuredRequestFilter - Request URI => https://rahulshettyacademy.com/maps/api/place/add/json?key=qaclick123
+2026-08-19 00:02:52.552 [TestNG-PoolService-1] INFO  c.n.l.RestAssuredRequestFilter - Request Headers =>
+Accept=application/json
+Content-Type=application/json; charset=UTF-8
+2026-08-19 00:02:52.561 [TestNG-PoolService-1] INFO  c.n.l.RestAssuredRequestFilter - Request Body => 
+{
+  "location" : {
+    "lat" : -38.383494,
+    "lng" : 33.427362
+  },
+  "accuracy" : 50,
+  "name" : "Frontline house",
+  "phone_number" : "(+91) 983 893 3937",
+  "address" : "29, side layout, cohen 09",
+  "types" : [ "shoe park", "shop" ],
+  "website" : "http://google.com",
+  "language" : "French"
+}
+2026-08-19 00:02:52.595 [TestNG-PoolService-1] INFO  c.n.l.RestAssuredRequestFilter - 
+ Response Status => HTTP/1.1 200 OK
+2026-08-19 00:02:52.606 [TestNG-PoolService-1] INFO  c.n.l.RestAssuredRequestFilter - Response Body => 
+{
+    "status": "OK",
+    "place_id": "02d2d673e27041a2b9024473aca7e146",
+    "scope": "APP",
+    "reference": "6e54b610defd7905f721866d7e1987a46e54b610defd7905f721866d7e1987a4",
+    "id": "6e54b610defd7905f721866d7e1987a4"
+}
+2026-08-19 00:02:52.606 [TestNG-PoolService-1] INFO  c.n.l.RestAssuredRequestFilter - ------------------------------------------------------------------
+2026-08-19 00:02:52.753 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener -  STEP PASSED: When the user sends a POST request to the "/maps/api/place/add/json" endpoint with the following body:
+2026-08-19 00:02:52.753 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener -  Then user should get the response code 200
+2026-08-19 00:02:52.754 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener -  STEP PASSED: Then user should get the response code 200
+2026-08-19 00:02:52.754 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener -  And user validates the add place success response with the following data:
+2026-08-19 00:02:52.758 [TestNG-PoolService-1] DEBUG com.nahmed.utils.ResponseHandler - Successfully deserialized response to class: com.nahmed.models.response.addplace.AddPlaceResponse
+2026-08-19 00:02:52.759 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener -  STEP PASSED: And user validates the add place success response with the following data:
+2026-08-19 00:02:52.759 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener -  And user validates the response against the JSON schema "addPlaceSchema.json"
+2026-08-19 00:02:52.760 [TestNG-PoolService-1] DEBUG com.nahmed.utils.ValidationUtils - Attempting to validate against schema file: /Users/nisarahmed/IdeaProjects/API-BDD-Framework/src/main/java/com/nahmed/models/schema/addPlaceSchema.json
+2026-08-19 00:02:52.821 [TestNG-PoolService-1] INFO  com.nahmed.utils.ValidationUtils - Successfully validated response against schema: addPlaceSchema.json
+2026-08-19 00:02:52.821 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener -  STEP PASSED: And user validates the response against the JSON schema "addPlaceSchema.json"
+2026-08-19 00:02:52.821 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener -  HOOK AFTER : com.nahmed.events.Hooks.tearDown(io.cucumber.java.Scenario)
+2026-08-19 00:02:52.821 [TestNG-PoolService-1] INFO  com.nahmed.events.Hooks - Finished scenario: TC01: Verify that the POST /maps/api/place/add/json endpoint returns a successful response with a valid request body | status: PASSED
+2026-08-19 00:02:52.822 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener -  STEP PASSED: HOOK AFTER : com.nahmed.events.Hooks.tearDown(io.cucumber.java.Scenario)
+2026-08-19 00:02:52.822 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - ********************************************************************************
+2026-08-19 00:02:52.822 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - Finished Scenario: TC01: Verify that the POST /maps/api/place/add/json endpoint returns a successful response with a valid request body -> PASSED
+2026-08-19 00:02:52.822 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener -  Duration: 3.60 seconds
+2026-08-19 00:02:52.822 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - ********************************************************************************
+2026-08-19 00:02:52.822 [TestNG-PoolService-1] INFO  com.nahmed.listeners.TestListener - 
+2026-08-19 00:02:52.824 [main] INFO  com.nahmed.listeners.TestListener - ==========================================================================
+2026-08-19 00:02:52.824 [main] INFO  com.nahmed.listeners.TestListener -  CUCUMBER TEST EXECUTION FINISHED 
+2026-08-19 00:02:52.825 [main] INFO  com.nahmed.listeners.TestListener -  Overall Status: PASSED
+2026-08-19 00:02:52.825 [main] INFO  com.nahmed.listeners.TestListener -  Timestamp: 2026-08-18T18:32:52.824739Z
+2026-08-19 00:02:52.825 [main] INFO  com.nahmed.listeners.TestListener - ==========================================================================

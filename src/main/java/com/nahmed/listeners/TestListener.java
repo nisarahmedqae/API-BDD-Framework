@@ -29,7 +29,7 @@ public class TestListener implements ConcurrentEventListener {
     }
 
     private void logStepOutcome(Status status, String stepDescription, Throwable error) {
-        String statusPrefix = "  STEP ";
+        String statusPrefix = " STEP ";
 
         switch (status) {
             case PASSED:
@@ -40,14 +40,14 @@ public class TestListener implements ConcurrentEventListener {
                 ExtentLogger.fail(stepDescription + " is FAILED");
                 if (error != null) {
                     ExtentLogger.failDetails("Failure Cause: " + getErrorMessage(error));
-                    LOG.error("  Underlying Step Failure Cause: {}", getErrorMessage(error));
+                    LOG.error(" Underlying Step Failure Cause: {}", getErrorMessage(error));
                 }
                 LOG.error(statusPrefix + status + ": " + stepDescription);
                 break;
             case SKIPPED:
                 ExtentLogger.skip(stepDescription + " is SKIPPED");
                 if (error != null) {
-                    LOG.info("  Reason for Skip: {}", error.getMessage());
+                    LOG.info(" Reason for Skip: {}", error.getMessage());
                 }
                 LOG.info(statusPrefix + status + ": " + stepDescription);
                 break;
@@ -63,7 +63,7 @@ public class TestListener implements ConcurrentEventListener {
                 ExtentLogger.fail(stepDescription + " is AMBIGUOUS (multiple step definitions found)");
                 if (error != null) {
                     ExtentLogger.failDetails("Ambiguity Details: " + getErrorMessage(error));
-                    LOG.error("  Ambiguity Cause: {}", getErrorMessage(error));
+                    LOG.error(" Ambiguity Cause: {}", getErrorMessage(error));
                 }
                 LOG.error(statusPrefix + status + ": " + stepDescription);
                 break;
@@ -91,10 +91,10 @@ public class TestListener implements ConcurrentEventListener {
 
     // --- Handler for Test Run Started (Suite Start) ---
     private void handleTestRunStarted(TestRunStarted event) {
-        LOG.info("================================================================================");
+        LOG.info("==========================================================================");
         LOG.info(" CUCUMBER TEST EXECUTION STARTED ");
         LOG.info(" Timestamp: {}", event.getInstant());
-        LOG.info("================================================================================");
+        LOG.info("==========================================================================");
 
         ExtentReport.initReports();
     }
@@ -104,11 +104,11 @@ public class TestListener implements ConcurrentEventListener {
         Result result = event.getResult(); // Overall result of the test run
         Status status = result.getStatus(); // This can be PASSED if all scenarios passed, FAILED otherwise
 
-        LOG.info("================================================================================");
+        LOG.info("==========================================================================");
         LOG.info(" CUCUMBER TEST EXECUTION FINISHED ");
         LOG.info(" Overall Status: {}", status.name());
         LOG.info(" Timestamp: {}", event.getInstant());
-        LOG.info("================================================================================");
+        LOG.info("==========================================================================");
 
         ExtentReport.flushReports();
     }
@@ -118,11 +118,12 @@ public class TestListener implements ConcurrentEventListener {
         TestCase testCase = event.getTestCase();
         String testCaseName = testCase.getName();
         String featureName = testCase.getUri().toString().substring(testCase.getUri().toString().lastIndexOf('/') + 1);
+        int scenarioLine = testCase.getLocation().getLine();
         ExtentReport.createTest(featureName + " : " + testCaseName);
 
         LOG.info("********************************************************************************");
         LOG.info("Feature: {}", featureName);
-        LOG.info("Starting Scenario: {} (Line: {})", testCaseName, testCase.getLine());
+        LOG.info("Starting Scenario: {} (Line: {})", testCaseName, scenarioLine);
         LOG.info("Tags: {}", String.join(", ", testCase.getTags()));
         LOG.info("********************************************************************************");
     }
@@ -137,7 +138,7 @@ public class TestListener implements ConcurrentEventListener {
 
         LOG.info("********************************************************************************");
         LOG.info("{}{} -> {}", outcomePrefix, testCaseName, status.name());
-        LOG.info("  Duration: {} seconds", String.format("%.2f", result.getDuration().toMillis() / 1000.0));
+        LOG.info(" Duration: {} seconds", String.format("%.2f", result.getDuration().toMillis() / 1000.0));
         LOG.info("********************************************************************************");
         LOG.info("");
 
@@ -150,13 +151,13 @@ public class TestListener implements ConcurrentEventListener {
         if (testStep instanceof PickleStepTestStep) {
             PickleStepTestStep pickleStep = (PickleStepTestStep) testStep;
             String stepDescription = getStepDescription(pickleStep);
-            LOG.info("  {}", stepDescription);
+            LOG.info(" {}", stepDescription);
 
             ExtentReport.addTestStep(stepDescription);
         } else if (testStep instanceof HookTestStep) {
             HookTestStep hookStep = (HookTestStep) testStep;
             String hookDescription = getHookDescription(hookStep);
-            LOG.info("  {}", hookDescription);
+            LOG.info(" {}", hookDescription);
 
             ExtentReport.addTestStep(hookDescription);
         }

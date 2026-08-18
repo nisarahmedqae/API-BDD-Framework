@@ -15,8 +15,8 @@ public final class FrameworkConstants {
     private static final String CONFIG_FILE_PATH = Path.of(RESOURCES_FOLDER_PATH, "config.properties").toString();
     private static final String EXTENT_REPORT_FOLDER_PATH = Path.of(System.getProperty("user.dir"), "reports", "extent").toString();
     private static final String LOGS_FOLDER_PATH = Path.of(System.getProperty("user.dir"), "reports", "logs").toString();
-    private static final String SCHEMA_FOLDER_PATH = System.getProperty("user.dir") + "\\src\\main\\java\\com\\nahmed\\models\\schema\\";
-    private static final String DATA_STORE_FILE_PATH = RESOURCES_FOLDER_PATH + "\\data_store.properties";
+    private static final String SCHEMA_FOLDER_PATH = Path.of(System.getProperty("user.dir"), "src", "main", "java", "com", "nahmed", "models", "schema").toString();
+    private static final String DATA_STORE_FILE_PATH = Path.of(RESOURCES_FOLDER_PATH, "data_store.properties").toString();
     private static final DateTimeFormatter REPORT_FOLDER_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
     private static final DateTimeFormatter REPORT_DATE_FOLDER_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -43,12 +43,16 @@ public final class FrameworkConstants {
     /**
      * Deletes Extent HTML reports older than {@value REPORT_RETENTION_MONTHS} months.
      */
-    private static void purgeOldExtentReports() { purgeOldFiles(new File(EXTENT_REPORT_FOLDER_PATH), ".html"); }
+    private static void purgeOldExtentReports() {
+        purgeOldFiles(new File(EXTENT_REPORT_FOLDER_PATH), ".html");
+    }
 
     /**
      * Deletes log files older than {@value REPORT_RETENTION_MONTHS} months.
      */
-    private static void purgeOldLogs() { purgeOldFiles(new File(LOGS_FOLDER_PATH), ".log"); }
+    private static void purgeOldLogs() {
+        purgeOldFiles(new File(LOGS_FOLDER_PATH), ".log");
+    }
 
     /**
      * Deletes files with the given extension whose names parse as timestamps older than
@@ -100,16 +104,10 @@ public final class FrameworkConstants {
         }
     }
 
-    public static String getConfigFilePath() {
-        return CONFIG_FILE_PATH;
-    }
+    public static String getConfigFilePath() { return CONFIG_FILE_PATH; }
 
-    public static String getSchemaFolderPath() {
-        return SCHEMA_FOLDER_PATH;
-    }
+    public static String getSchemaFolderPath() { return SCHEMA_FOLDER_PATH; }
 
-    public static String getDataStoreFilePath() {
-        return DATA_STORE_FILE_PATH;
-    }
+    public static String getDataStoreFilePath() { return DATA_STORE_FILE_PATH; }
 
 }

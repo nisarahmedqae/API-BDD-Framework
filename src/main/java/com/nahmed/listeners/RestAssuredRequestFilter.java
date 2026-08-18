@@ -1,4 +1,4 @@
-package com.nahmed.factories;
+package com.nahmed.listeners;
 
 import com.nahmed.reports.ExtentLogger;
 import com.nahmed.utils.RequestHandler;
@@ -14,23 +14,19 @@ public class RestAssuredRequestFilter implements Filter {
 
     private static final Logger LOG = LoggerFactory.getLogger(RestAssuredRequestFilter.class);
 
-    // ANSI Escape Codes for colors
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_CYAN = "\u001B[36m";
-
     @Override
     public Response filter(FilterableRequestSpecification requestSpec, FilterableResponseSpecification responseSpec, FilterContext ctx) {
         Response response = ctx.next(requestSpec, responseSpec);
 
-        LOG.info(ANSI_CYAN + "-----------------------------------------------------------------------------------------" + ANSI_RESET);
+        LOG.info("------------------------------------------------------------------");
 
-        LOG.info(ANSI_CYAN + " Request Method => {}" + ANSI_RESET, requestSpec.getMethod());
+        LOG.info("Request Method => {}", requestSpec.getMethod());
         ExtentLogger.info("Request Method => " + requestSpec.getMethod());
 
-        LOG.info(ANSI_CYAN + " Request URI => {}" + ANSI_RESET, requestSpec.getURI());
+        LOG.info("Request URI => {}", requestSpec.getURI());
         ExtentLogger.info("Request URI => " + requestSpec.getURI());
 
-        LOG.info(ANSI_CYAN + " Request Headers =>\n{}" + ANSI_RESET, requestSpec.getHeaders());
+        LOG.info("Request Headers =>\n{}", requestSpec.getHeaders());
         var headerList = requestSpec.getHeaders().asList();
         if (!headerList.isEmpty()) {
             String[][] headerTable = headerList.stream()
@@ -43,16 +39,16 @@ public class RestAssuredRequestFilter implements Filter {
 
         Object rawRequestBody = requestSpec.getBody();
         String prettyRequestBody = rawRequestBody != null ? RequestHandler.prettyPrint(rawRequestBody.toString()) : "[No Request Body]";
-        LOG.info(ANSI_CYAN + " Request Body => \n{}" + ANSI_RESET, prettyRequestBody);
+        LOG.info("Request Body => \n{}", prettyRequestBody);
         ExtentLogger.infoInJSON(prettyRequestBody);
 
-        LOG.info(ANSI_CYAN + "\n Response Status => {}" + ANSI_RESET, response.getStatusLine());
+        LOG.info("\n Response Status => {}", response.getStatusLine());
         ExtentLogger.info(response.getStatusLine());
 
-        LOG.info(" Response Body => \n{}" + ANSI_RESET, response.asPrettyString());
+        LOG.info("Response Body => \n{}", response.asPrettyString());
         ExtentLogger.infoInJSON(response.asPrettyString());
 
-        LOG.info(ANSI_CYAN + "-----------------------------------------------------------------------------------------" + ANSI_RESET);
+        LOG.info("------------------------------------------------------------------");
 
         return response;
     }
