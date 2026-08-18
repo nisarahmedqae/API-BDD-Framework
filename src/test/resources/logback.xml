@@ -1,42 +1,51 @@
 <configuration>
+    <timestamp key="LOG_TIMESTAMP" datePattern="yyyy-MM-dd_HH-mm-ss" timeReference="contextBirth"/>
+    <timestamp key="LOG_DATE_DIR" datePattern="yyyy-MM-dd" timeReference="contextBirth"/>
 
     <!-- Define properties -->
     <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
-    <property name="LOG_FILE" value="reports/logs/test_execution.log"/>
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%d{HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{36}) - %msg%n"/>
+    <property name="LOG_DIR" value="${user.dir}/reports/logs/${LOG_DATE_DIR}"/>
+    <property name="LOG_FILE" value="${LOG_DIR}/${LOG_TIMESTAMP}.log"/>
 
     <!-- Appender for Console Output -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>${LOG_PATTERN}</pattern>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
         </encoder>
     </appender>
 
-    <!-- Appender for File Output -->
+    <!-- File appender - one file per test run, named by timestamp -->
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
         <file>${LOG_FILE}</file>
-        <append>true</append> <!-- true=append to file, false=overwrite -->
+        <append>false</append>
         <encoder>
             <pattern>${LOG_PATTERN}</pattern>
         </encoder>
     </appender>
 
+    <!-- Async wrapper so test execution threads are not blocked by file I/O -->
+    <appender name="ASYNC_FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>512</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <neverBlock>true</neverBlock>
+        <appender-ref ref="FILE"/>
+    </appender>
+
     <!-- === Configure Logger Levels === -->
 
-    <!-- Set the level for your framework's packages -->
-    <!-- Use DEBUG to see detailed logs from RestAssuredRequestFilter -->
+    <!-- Set the level for your framework's packages to DEBUG for detailed output -->
     <logger name="com.nahmed" level="DEBUG"/>
 
-    <!-- Set the level for noisy libraries -->
-    <logger name="io.restassured" level="INFO"/>
-    <logger name="org.apache.http" level="WARN"/> <!-- Apache HttpClient used by RestAssured -->
-    <logger name="com.github.dzieciou.testing.curl" level="INFO"/> <!-- Curl logger -->
-
+    <!-- Reduce noise from verbose third-party libraries -->
+    <logger name="freemarker.cache" level="WARN"/>
+    <logger name="com.microsoft.playwright" level="INFO"/>
+    <logger name="io.netty" level="INFO"/>
 
     <!-- Root logger level - catches everything not specified above -->
-    <!-- Set to INFO for general output, WARN to reduce noise -->
     <root level="INFO">
         <appender-ref ref="STDOUT"/>
-        <appender-ref ref="FILE"/> <!-- Add this line to enable file logging -->
+        <appender-ref ref="ASYNC_FILE"/>
     </root>
-
 </configuration>

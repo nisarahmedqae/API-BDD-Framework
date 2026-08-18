@@ -1,4 +1,4 @@
-# API-BDD-Framework (by: Nisar Ahmed)
+# restassured-bdd-framework (by: Nisar Ahmed)
 
 This is a robust **BDD (Behavior-Driven Development)** test automation framework designed for **REST API testing**. It's built with **Java, Rest-Assured, Cucumber, and TestNG** to provide a powerful, scalable, and maintainable solution for validating web services.
 

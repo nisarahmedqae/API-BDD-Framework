@@ -8,7 +8,7 @@ public final class ExtentStepManager {
 
     }
 
-    private static ThreadLocal<ExtentTest> extTestStep = new ThreadLocal<>();
+    private static final ThreadLocal<ExtentTest> extTestStep = new ThreadLocal<>();
 
     static ExtentTest getExtentTestStep() {
         return extTestStep.get();

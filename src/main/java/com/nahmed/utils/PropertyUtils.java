@@ -5,9 +5,8 @@ import com.nahmed.enums.ConfigProperties;
 import com.nahmed.exceptions.PropertyFileUsageException;
 
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
@@ -15,24 +14,25 @@ import java.util.Properties;
 public final class PropertyUtils {
 
     private PropertyUtils() {
-
     }
 
-    private static Properties prop = new Properties();
-    private static final Map<String, String> CONFIGMAP = new HashMap<>();
+    private static final Map<String, String> CONFIGMAP;
 
     static {
+        Map<String, String> loadedConfigMap = new java.util.HashMap<>();
         try (FileInputStream fis = new FileInputStream(FrameworkConstants.getConfigFilePath())) {
+            Properties prop = new Properties();
             prop.load(fis);
 
             for (Map.Entry<Object, Object> entry : prop.entrySet()) {
-                CONFIGMAP.put(entry.getKey().toString().toLowerCase(), entry.getValue().toString());
+                loadedConfigMap.put(entry.getKey().toString().toLowerCase(), entry.getValue().toString());
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(0);
+            throw new ExceptionInInitializerError("Failed to load config.properties: " + e.getMessage());
         }
+
+        CONFIGMAP = Collections.unmodifiableMap(loadedConfigMap);
     }
 
     public static String getValue(ConfigProperties key) {

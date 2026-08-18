@@ -11,22 +11,21 @@ import org.testng.annotations.DataProvider;
                 "rerun:target/cucumber/rerun.txt",
                 "com.nahmed.listeners.TestListener"
         },
-        features = {"@target/cucumber/rerun.txt"},
+        features = {"src/test/java/com/nahmed/features"},
         glue = {"com.nahmed.stepdefinitions",
                 "com.nahmed.events"},
         monochrome = true,
         snippets = SnippetType.CAMELCASE
 )
-public class FailedTestRunner extends AbstractTestNGCucumberTests {
+public class CiTestRunner extends AbstractTestNGCucumberTests {
 
-    // 1. Parallel Execution Control
     @Override
     @DataProvider(parallel = true)
     public Object[][] scenarios() { return super.scenarios(); }
 
-    // 2. Thread Count Configuration
     static {
-        System.setProperty("dataproviderthreadcount", RuntimeConfigResolver.resolveThreadCount("failedThreads"));
+        System.setProperty("dataproviderthreadcount", RuntimeConfigResolver.resolveThreadCount("threads"));
+        RuntimeConfigResolver.applyCucumberTagFilterIfPresent();
     }
 
 }

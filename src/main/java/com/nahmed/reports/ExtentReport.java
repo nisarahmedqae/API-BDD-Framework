@@ -5,49 +5,73 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import com.nahmed.constants.FrameworkConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Objects;
 
 public final class ExtentReport {
 
-    private ExtentReport() {
+    private static final Logger LOG = LoggerFactory.getLogger(ExtentReport.class);
 
+    private ExtentReport() {
     }
 
-    private static ExtentReports extent;
+    private static volatile ExtentReports extent;
 
-    public static void initReports() {
+    public static synchronized void initReports() {
         if (Objects.isNull(extent)) {
             extent = new ExtentReports();
             ExtentSparkReporter spark = new ExtentSparkReporter(FrameworkConstants.getExtentReportFilePath());
             extent.attachReporter(spark);
             spark.config().setTheme(Theme.STANDARD);
             spark.config().setDocumentTitle("Test Results");
-            spark.config().setReportName("API-BDD-Framework");
+            spark.config().setReportName("playwright-bdd-framework");
         }
     }
 
     public static void flushReports() {
-        if (Objects.nonNull(extent)) {
-            extent.flush();
-        }
-        ExtentManager.unload(); // Unloads ExtentManager's context
-        ExtentStepManager.unload(); // Clean up scenario context
-        /*
         try {
-            Desktop.getDesktop().browse(new File(FrameworkConstants.getExtentReportFilePath()).toURI());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            if (Objects.nonNull(extent)) {
+                extent.flush();
+            }
 
-         */
+            if (!Desktop.isDesktopSupported()) {
+                return;
+            }
+
+            Desktop desktop = Desktop.getDesktop();
+            if (!desktop.isSupported(Desktop.Action.BROWSE)) {
+                return;
+            }
+
+            String osName = System.getProperty("os.name", "").toLowerCase(Locale.ROOT);
+            if (osName.contains("linux") && System.getenv("CI") != null) {
+                return;
+            }
+
+            desktop.browse(new File(FrameworkConstants.getExtentReportFilePath()).toURI());
+        } catch (IOException | RuntimeException e) {
+            LOG.error("Unable to open extent report in browser", e);
+        } finally {
+            clearScenarioContext();
+        }
     }
 
     public static void createTest(String testCaseName) {
-        ExtentTest scenarioTest = extent.createTest(testCaseName);
+        if (extent == null) {
+            initReports();
+        }
+
+        ExtentTest scenarioTest;
+        synchronized (ExtentReport.class) {
+            scenarioTest = extent.createTest(testCaseName);
+        }
+
         ExtentStepManager.setExtentTestStep(scenarioTest);
         ExtentManager.setExtentTest(scenarioTest); // Set scenario as current test in ExtentManager
     }
@@ -58,8 +82,12 @@ public final class ExtentReport {
             ExtentTest stepTest = currentScenario.createNode(stepDescription);
             ExtentManager.setExtentTest(stepTest); // Now, ExtentManager's context is this step
         } else {
-            System.err.println("ERROR: Cannot add step '" + stepDescription + "'. Current scenario test not found in ExtentReport.");
+            LOG.error("Cannot add step '{}'. Current scenario test not found in ExtentReport.", stepDescription);
         }
     }
 
+    public static void clearScenarioContext() {
+        ExtentManager.unload();
+        ExtentStepManager.unload();
+    }
 }
