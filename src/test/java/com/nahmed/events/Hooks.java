@@ -33,14 +33,7 @@ public class Hooks {
 
     @After(order = 1)
     public void tearDown(Scenario scenario) {
-        try {
-            RestAssured.reset();
-        } catch (RuntimeException closeError) {
-            LOG.warn("Rest Assured close failed for scenario '{}': {}", scenario.getName(), closeError.getMessage());
-            throw closeError;
-        } finally {
-            LOG.info("Finished scenario: {} | status: {}", scenario.getName(), scenario.getStatus());
-        }
+        LOG.info("Finished scenario: {} | status: {}", scenario.getName(), scenario.getStatus());
     }
 
 }

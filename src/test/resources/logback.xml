@@ -40,7 +40,6 @@
 
     <!-- Reduce noise from verbose third-party libraries -->
     <logger name="freemarker.cache" level="WARN"/>
-    <logger name="com.microsoft.playwright" level="INFO"/>
     <logger name="io.netty" level="INFO"/>
 
     <!-- Root logger level - catches everything not specified above -->
