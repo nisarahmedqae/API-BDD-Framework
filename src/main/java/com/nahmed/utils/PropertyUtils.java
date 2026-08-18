@@ -36,19 +36,19 @@ public final class PropertyUtils {
     }
 
     public static String getValue(ConfigProperties key) {
-        if (Objects.isNull(key) || Objects.isNull(CONFIGMAP.get(key.toString().toLowerCase()))) {
-            throw new PropertyFileUsageException(
-                    "Property name " + key + " is not found. Please check config.properties");
-        }
-        return CONFIGMAP.get(key.toString().toLowerCase());
+        return getValueInternal(key, key == null ? null : key.toString().toLowerCase());
     }
 
     public static String getValue(String key) {
-        if (Objects.isNull(key) || Objects.isNull(CONFIGMAP.get(key.toLowerCase()))) {
-            throw new PropertyFileUsageException(
-                    "Property name " + key + " is not found. Please check config.properties");
-        }
-        return CONFIGMAP.get(key.toLowerCase());
+        return getValueInternal(key, key == null ? null : key.toLowerCase());
     }
 
+    private static String getValueInternal(Object originalKey, String normalizedKey) {
+        if (Objects.isNull(originalKey) || Objects.isNull(CONFIGMAP.get(normalizedKey))) {
+            throw new PropertyFileUsageException(
+                    "Property name " + originalKey + " is not found. Please check config.properties"
+            );
+        }
+        return CONFIGMAP.get(normalizedKey);
+    }
 }

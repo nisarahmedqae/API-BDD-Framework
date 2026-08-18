@@ -13,24 +13,47 @@ public final class TestContext {
     private Response response;
 
     // Getters and Setters
-    public RequestSpecification getRequest() {
-        return request;
-    }
+    public RequestSpecification getRequest() { return request; }
 
-    public void setRequest(RequestSpecification request) {
-        this.request = request;
-    }
+    public void setRequest(RequestSpecification request) { this.request = request; }
 
-    public Response getResponse() {
-        return response;
-    }
+    public Response getResponse() { return response; }
 
-    public void setResponse(Response response) {
-        this.response = response;
+    public void setResponse(Response response) { this.response = response; }
+
+    private <T> T convertStringValue(String key, String stringValue, Class<T> type) {
+        try {
+            if (type == Integer.class) {
+                return type.cast(Integer.valueOf(stringValue));
+            }
+            if (type == Boolean.class) {
+                return type.cast(Boolean.valueOf(stringValue));
+            }
+            if (type == Long.class) {
+                return type.cast(Long.valueOf(stringValue));
+            }
+            if (type == Double.class) {
+                return type.cast(Double.valueOf(stringValue));
+            }
+            if (type == Float.class) {
+                return type.cast(Float.valueOf(stringValue));
+            }
+        } catch (NumberFormatException e) {
+            throw new ClassCastException(String.format(
+                    "Failed to convert String value '%s' to type %s for key '%s'.",
+                    stringValue, type.getSimpleName(), key
+            ));
+        }
+
+        return null;
     }
 
     public <T> T getData(String key, Class<T> type) {
         Object value = data.get(key);
+
+        if (value == null) {
+            throw new IllegalArgumentException("No data found in TestContext for key: '" + key + "'.");
+        }
 
         // If the type is already correct, just cast and return
         if (type.isInstance(value)) {
@@ -40,24 +63,9 @@ public final class TestContext {
         // --- Automatic Type Conversion ---
         if (value instanceof String) {
             String stringValue = (String) value;
-            try {
-                if (type == Integer.class) {
-                    return type.cast(Integer.valueOf(stringValue));
-                }
-                if (type == Boolean.class) {
-                    return type.cast(Boolean.valueOf(stringValue));
-                }
-                if (type == Long.class) {
-                    return type.cast(Long.valueOf(stringValue));
-                }
-                if (type == Double.class) {
-                    return type.cast(Double.valueOf(stringValue));
-                }
-            } catch (NumberFormatException e) {
-                throw new ClassCastException(String.format(
-                        "Failed to convert String value '%s' to type %s for key '%s'.",
-                        stringValue, type.getSimpleName(), key
-                ));
+            T convertedValue = convertStringValue(key, stringValue, type);
+            if (convertedValue != null) {
+                return convertedValue;
             }
         }
 
@@ -70,8 +78,5 @@ public final class TestContext {
         ));
     }
 
-    public void setData(String key, Object value) {
-        data.put(key, value);
-    }
-
+    public void setData(String key, Object value) { data.put(key, value); }
 }

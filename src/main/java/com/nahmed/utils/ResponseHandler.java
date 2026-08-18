@@ -14,15 +14,25 @@ public class ResponseHandler {
     private static final ObjectMapper mapper = new ObjectMapper(); // Reuse ObjectMapper
 
     public static <T> T deserializedResponse(Response response, Class<T> clazz) { // Use Class<T>
+        if (response == null) {
+            throw new IllegalArgumentException("Response must not be null.");
+        }
+
+        if (clazz == null) {
+            throw new IllegalArgumentException("Target class must not be null.");
+        }
+
         T responseDeserialized = null;
+        String responseBody = response.asString();
         try {
-            String responseBody = response.asString();
             responseDeserialized = mapper.readValue(responseBody, clazz);
             LOG.debug("Successfully deserialized response to class: {}", clazz.getName());
 
         } catch (IOException e) {
-            LOG.error("Error deserializing response body to {}. Response Body:\n{}", clazz.getName(), response.asString(), e);
+            LOG.error("Error deserializing response body to {}. Response Body:\n{}", clazz.getName(), responseBody, e);
+            throw new IllegalStateException("Failed to deserialize response body to " + clazz.getName(), e);
         }
+
         return responseDeserialized;
     }
 }

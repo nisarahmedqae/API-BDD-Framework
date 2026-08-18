@@ -7,22 +7,6 @@ public final class RuntimeConfigResolver {
     private RuntimeConfigResolver() {
     }
 
-    private static String safeGetValue(ConfigProperties key) {
-        try {
-            return PropertyUtils.getValue(key);
-        } catch (RuntimeException ignored) {
-            return null;
-        }
-    }
-
-    private static String safeGetValue(String key) {
-        try {
-            return PropertyUtils.getValue(key);
-        } catch (RuntimeException ignored) {
-            return null;
-        }
-    }
-
     private static String firstNonBlank(String... values) {
         for (String value : values) {
             if (value != null && !value.trim().isEmpty()) {
@@ -68,12 +52,4 @@ public final class RuntimeConfigResolver {
         }
     }
 
-    private static boolean toBoolean(String value) {
-        String normalized = value.trim().toLowerCase();
-        return "true".equals(normalized)
-                || "yes".equals(normalized)
-                || "y".equals(normalized)
-                || "1".equals(normalized)
-                || "on".equals(normalized);
-    }
 }

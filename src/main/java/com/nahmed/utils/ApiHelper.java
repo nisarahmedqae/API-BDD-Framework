@@ -1,6 +1,8 @@
 package com.nahmed.utils;
 
 import com.nahmed.constants.FrameworkConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -10,37 +12,59 @@ import java.util.Properties;
 
 public class ApiHelper {
 
+    private static final Logger LOG = LoggerFactory.getLogger(ApiHelper.class);
+
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
     private static final String ALPHANUMERIC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     private static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static final Object DATA_STORE_LOCK = new Object();
 
-    // Method to read a data_store property value
-    public static String getDataStore(String key) {
+    private static Properties loadDataStoreProperties() throws IOException {
         Properties properties = new Properties();
         try (FileInputStream fis = new FileInputStream(FrameworkConstants.getDataStoreFilePath())) {
             properties.load(fis);
-            return properties.getProperty(key);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+        }
+        return properties;
+    }
+
+    private static void storeDataStoreProperties(Properties properties) throws IOException {
+        try (FileOutputStream fos = new FileOutputStream(FrameworkConstants.getDataStoreFilePath())) {
+            properties.store(fos, "Updated during testing");
+        }
+    }
+
+    // Method to read a data_store property value
+    public static String getDataStore(String key) {
+        synchronized (DATA_STORE_LOCK) {
+            try {
+                Properties properties = loadDataStoreProperties();
+                return properties.getProperty(key);
+            } catch (IOException e) {
+                LOG.error("Failed to read '{}' from data store '{}'.", key, FrameworkConstants.getDataStoreFilePath(), e);
+                return null;
+            }
         }
     }
 
     // Method to update a data_store property value
     public static void setDataStore(String key, String value) {
-        Properties properties = new Properties();
-        try (FileInputStream fis = new FileInputStream(FrameworkConstants.getDataStoreFilePath())) {
-            properties.load(fis); // Load existing properties
-        } catch (IOException e) {
-            System.out.println("Could not load existing properties: " + e.getMessage());
-        }
+        synchronized (DATA_STORE_LOCK) {
+            Properties properties;
+            try {
+                properties = loadDataStoreProperties();
+            } catch (IOException e) {
+                LOG.warn("Could not load existing data store '{}'. A new in-memory properties set will be used for this write. Cause: {}",
+                        FrameworkConstants.getDataStoreFilePath(), e.getMessage());
+                properties = new Properties();
+            }
 
-        properties.setProperty(key, value); // Set/update the property
+            properties.setProperty(key, value);
 
-        try (FileOutputStream fos = new FileOutputStream(FrameworkConstants.getDataStoreFilePath())) {
-            properties.store(fos, "Updated during testing"); // Store back to file
-        } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                storeDataStoreProperties(properties);
+            } catch (IOException e) {
+                LOG.error("Failed to write '{}' to data store '{}'.", key, FrameworkConstants.getDataStoreFilePath(), e);
+            }
         }
     }
 
@@ -71,5 +95,4 @@ public class ApiHelper {
         }
         return sb.toString();
     }
-
 }
