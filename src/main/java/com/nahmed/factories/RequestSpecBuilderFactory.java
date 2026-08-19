@@ -5,8 +5,8 @@ import com.github.dzieciou.testing.curl.Options;
 import com.nahmed.enums.ConfigProperties;
 import com.nahmed.listeners.RestAssuredRequestFilter;
 import com.nahmed.utils.AuthManager;
-import com.nahmed.utils.ConfigurationManager;
 import com.nahmed.utils.PropertyUtils;
+import com.nahmed.utils.RuntimeConfigResolver;
 import io.restassured.RestAssured;
 import io.restassured.config.RestAssuredConfig;
 import io.restassured.specification.RequestSpecification;
@@ -21,7 +21,7 @@ public class RequestSpecBuilderFactory {
 
     public RequestSpecBuilderFactory(AuthManager authManager) {
         this.authManager = authManager;
-        this.baseUrl = PropertyUtils.getValue(ConfigProperties.BASE_URL + ConfigurationManager.getCurrentEnvironment());
+        this.baseUrl = PropertyUtils.getValue(ConfigProperties.BASE_URL + RuntimeConfigResolver.resolveEnvironmentSuffix());
     }
 
     private RequestSpecification createBaseRequestSpec() {

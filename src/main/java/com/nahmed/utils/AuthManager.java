@@ -9,9 +9,10 @@ public class AuthManager {
 
     public String getBearerToken() {
 
-        String tokenUrl = PropertyUtils.getValue(ConfigProperties.TOKEN_URL + ConfigurationManager.getCurrentEnvironment());
-        String clientId = PropertyUtils.getValue(ConfigProperties.CLIENT_ID + ConfigurationManager.getCurrentEnvironment());
-        String clientSecret = PropertyUtils.getValue(ConfigProperties.CLIENT_SECRET + ConfigurationManager.getCurrentEnvironment());
+        String environmentSuffix = RuntimeConfigResolver.resolveEnvironmentSuffix();
+        String tokenUrl = PropertyUtils.getValue(ConfigProperties.TOKEN_URL + environmentSuffix);
+        String clientId = PropertyUtils.getValue(ConfigProperties.CLIENT_ID + environmentSuffix);
+        String clientSecret = PropertyUtils.getValue(ConfigProperties.CLIENT_SECRET + environmentSuffix);
 
         /*
         Response tokenResponse = RestAssured

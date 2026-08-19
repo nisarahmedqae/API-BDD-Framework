@@ -1,13 +1,14 @@
 <configuration>
     <timestamp key="LOG_TIMESTAMP" datePattern="yyyy-MM-dd_HH-mm-ss" timeReference="contextBirth"/>
     <timestamp key="LOG_DATE_DIR" datePattern="yyyy-MM-dd" timeReference="contextBirth"/>
+    <define name="REPORT_ENV_SUFFIX" class="com.nahmed.utils.LogEnvironmentSuffixDefiner"/>
 
     <!-- Define properties -->
     <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
     <property name="CONSOLE_LOG_PATTERN"
               value="%d{HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{36}) - %msg%n"/>
     <property name="LOG_DIR" value="${user.dir}/reports/logs/${LOG_DATE_DIR}"/>
-    <property name="LOG_FILE" value="${LOG_DIR}/${LOG_TIMESTAMP}.log"/>
+    <property name="LOG_FILE" value="${LOG_DIR}/${LOG_TIMESTAMP}${REPORT_ENV_SUFFIX}.log"/>
 
     <!-- Appender for Console Output -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">

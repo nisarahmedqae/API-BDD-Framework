@@ -1,10 +1,9 @@
 package com.nahmed.events;
 
-import com.nahmed.utils.ConfigurationManager;
+import com.nahmed.utils.RuntimeConfigResolver;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
-import io.restassured.RestAssured;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +13,7 @@ public class Hooks {
 
     @Before(order = 1)
     public void setUp(Scenario scenario) {
-        String currentEnvironment = ConfigurationManager.getCurrentEnvironment();
+        String currentEnvironment = RuntimeConfigResolver.resolveEnvironmentSuffix();
         String normalizedEnvironment = currentEnvironment.replace("_", "").toUpperCase();
         switch (normalizedEnvironment) {
             case "INT":

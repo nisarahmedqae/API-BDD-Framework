@@ -1,5 +1,7 @@
 package com.nahmed.constants;
 
+import com.nahmed.utils.RuntimeConfigResolver;
+
 import java.io.File;
 import java.nio.file.Path;
 import java.time.LocalDate;
@@ -19,6 +21,7 @@ public final class FrameworkConstants {
     private static final String DATA_STORE_FILE_PATH = Path.of(RESOURCES_FOLDER_PATH, "data_store.properties").toString();
     private static final DateTimeFormatter REPORT_FOLDER_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
     private static final DateTimeFormatter REPORT_DATE_FOLDER_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final int REPORT_FILENAME_TIMESTAMP_LENGTH = LocalDateTime.now().format(REPORT_FOLDER_TIME_FORMAT).length();
 
     private static final int REPORT_RETENTION_MONTHS = 3;
 
@@ -37,7 +40,8 @@ public final class FrameworkConstants {
     private static String createReportPath() {
         String dateFolder = LocalDate.now().format(REPORT_DATE_FOLDER_FORMAT);
         String timestamp = LocalDateTime.now().format(REPORT_FOLDER_TIME_FORMAT);
-        return Path.of(EXTENT_REPORT_FOLDER_PATH, dateFolder, timestamp + ".html").toString();
+        String environmentSuffix = RuntimeConfigResolver.resolveEnvironmentSuffix();
+        return Path.of(EXTENT_REPORT_FOLDER_PATH, dateFolder, timestamp + environmentSuffix + ".html").toString();
     }
 
     /**
@@ -86,8 +90,13 @@ public final class FrameworkConstants {
             }
 
             String name = entry.getName().replace(extension, "");
+            if (name.length() < REPORT_FILENAME_TIMESTAMP_LENGTH) {
+                continue;
+            }
+
             try {
-                LocalDateTime fileDate = LocalDateTime.parse(name, REPORT_FOLDER_TIME_FORMAT);
+                String timestampPrefix = name.substring(0, REPORT_FILENAME_TIMESTAMP_LENGTH);
+                LocalDateTime fileDate = LocalDateTime.parse(timestampPrefix, REPORT_FOLDER_TIME_FORMAT);
                 if (fileDate.isBefore(cutoff) && !entry.delete()) {
                     System.err.println("[FrameworkConstants] Failed to delete old file: " + entry.getAbsolutePath());
                 }
@@ -104,10 +113,15 @@ public final class FrameworkConstants {
         }
     }
 
-    public static String getConfigFilePath() { return CONFIG_FILE_PATH; }
+    public static String getConfigFilePath() {
+        return CONFIG_FILE_PATH;
+    }
 
-    public static String getSchemaFolderPath() { return SCHEMA_FOLDER_PATH; }
+    public static String getSchemaFolderPath() {
+        return SCHEMA_FOLDER_PATH;
+    }
 
-    public static String getDataStoreFilePath() { return DATA_STORE_FILE_PATH; }
-
+    public static String getDataStoreFilePath() {
+        return DATA_STORE_FILE_PATH;
+    }
 }

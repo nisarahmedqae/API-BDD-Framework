@@ -5,6 +5,7 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import com.nahmed.constants.FrameworkConstants;
+import com.nahmed.utils.RuntimeConfigResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,12 +26,14 @@ public final class ExtentReport {
 
     public static synchronized void initReports() {
         if (Objects.isNull(extent)) {
+            String environmentName = RuntimeConfigResolver.resolveEnvironmentName().toUpperCase(Locale.ROOT);
             extent = new ExtentReports();
             ExtentSparkReporter spark = new ExtentSparkReporter(FrameworkConstants.getExtentReportFilePath());
             extent.attachReporter(spark);
             spark.config().setTheme(Theme.STANDARD);
             spark.config().setDocumentTitle("Test Results");
-            spark.config().setReportName("restassured-bdd-framework");
+            spark.config().setReportName("restassured-bdd-framework - " + environmentName);
+            extent.setSystemInfo("Environment", environmentName);
         }
     }
 

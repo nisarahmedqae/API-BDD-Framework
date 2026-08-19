@@ -4,6 +4,9 @@ import com.nahmed.enums.ConfigProperties;
 
 public final class RuntimeConfigResolver {
 
+    private static final String ENV_SYSTEM_PROPERTY = "env";
+    private static final String DEFAULT_ENVIRONMENT = "int";
+
     private RuntimeConfigResolver() {
     }
 
@@ -14,6 +17,33 @@ public final class RuntimeConfigResolver {
             }
         }
         return null;
+    }
+
+    private static String normalizeEnvironmentName(String environment) {
+        String sanitizedEnvironment = firstNonBlank(environment);
+        if (sanitizedEnvironment == null) {
+            return DEFAULT_ENVIRONMENT;
+        }
+
+        sanitizedEnvironment = sanitizedEnvironment.replace("_", "").trim().toLowerCase();
+        return sanitizedEnvironment.isEmpty() ? DEFAULT_ENVIRONMENT : sanitizedEnvironment;
+    }
+
+    public static String resolveEnvironmentName() {
+        String environmentFromSystemProperty = firstNonBlank(System.getProperty(ENV_SYSTEM_PROPERTY));
+        if (environmentFromSystemProperty != null) {
+            return normalizeEnvironmentName(environmentFromSystemProperty);
+        }
+
+        try {
+            return normalizeEnvironmentName(PropertyUtils.getValue(ConfigProperties.ENVIRONMENT));
+        } catch (RuntimeException ignored) {
+            return DEFAULT_ENVIRONMENT;
+        }
+    }
+
+    public static String resolveEnvironmentSuffix() {
+        return "_" + resolveEnvironmentName();
     }
 
     public static String resolveThreadCount(String systemPropertyKey) {
@@ -51,5 +81,4 @@ public final class RuntimeConfigResolver {
             System.setProperty("cucumber.filter.tags", resolvedTags);
         }
     }
-
 }
